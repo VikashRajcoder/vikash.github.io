@@ -1,9 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Hello World - Vikash</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Under Construction</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+
+h1 {
+  font-size: 3rem;
+  letter-spacing: 3px;
+  animation: glow 2s infinite alternate;
+}
+
+p {
+  opacity: 0.8;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #fff; }
+  to { text-shadow: 0 0 25px #00eaff; }
+}
+
+.icons {
+  margin-top: 25px;
+}
+
+.icons a {
+  color: white;
+  font-size: 26px;
+  margin: 0 12px;
+  transition: 0.3s;
+}
+
+.icons a:hover {
+  transform: translateY(-5px) scale(1.2);
+}
+</style>
 </head>
+
 <body>
-    <h1>Hello World - Vikash</h1>
+<div class="container">
+  <h1>🚧 Website Under Construction</h1>
+  <p>Something classy is coming soon. Stay connected!</p>
+
+  <div class="icons">
+    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+  </div>
+</div>
+
+<script>
+console.log('Website under construction');
+</script>
 </body>
 </html>
