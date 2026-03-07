@@ -1,13 +1,1428 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="dark">
 <head>
-<title>LOGICITY BY VIKASH</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logicity by Vikash</title>
+  <meta name="description" content="Exploring Coding, Philosophy, and Ideas — A personal knowledge hub by Vikash" />
+  <meta name="keywords" content="philosophy, coding, books, personal growth, blog, Vikash" />
+  <meta property="og:title" content="Logicity by Vikash" />
+  <meta property="og:description" content="Exploring Coding, Philosophy, and Ideas" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --bg: #0c0c10;
+      --bg2: #111118;
+      --bg3: #18181f;
+      --surface: #1e1e28;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8e4dc;
+      --text2: #9d9891;
+      --text3: #5c5855;
+      --accent: #c9a96e;
+      --accent2: #e8c98a;
+      --accent-dim: rgba(201,169,110,0.12);
+      --red: #e07070;
+      --blue: #7eb8d4;
+      --green: #85c1a3;
+      --purple: #a89cc8;
+      --code-bg: #141419;
+      --radius: 6px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+      --font-head: 'Playfair Display', Georgia, serif;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
+      --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+      --nav-h: 64px;
+      --max-w: 1180px;
+      --prose-w: 720px;
+    }
+    [data-theme="light"] {
+      --bg: #faf8f4;
+      --bg2: #f3f0ea;
+      --bg3: #ede9e1;
+      --surface: #ffffff;
+      --border: rgba(0,0,0,0.09);
+      --text: #1a1814;
+      --text2: #6b6560;
+      --text3: #a8a4a0;
+      --accent: #a07830;
+      --accent2: #c09040;
+      --accent-dim: rgba(160,120,48,0.1);
+      --code-bg: #f0ede7;
+      --shadow: 0 4px 24px rgba(0,0,0,0.1);
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: inherit; }
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    /* ─── Reading Progress Bar ─── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0%; z-index: 1000; transition: width 0.1s linear;
+    }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 60px);
+      background: rgba(12,12,16,0.85);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 900;
+      transition: background 0.3s;
+    }
+    [data-theme="light"] nav { background: rgba(250,248,244,0.88); }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text2);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .btn-icon {
+      width: 36px; height: 36px; border: 1px solid var(--border);
+      border-radius: var(--radius); background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text2); transition: all 0.2s;
+    }
+    .btn-icon:hover { color: var(--accent); border-color: var(--accent); }
+    .btn-icon svg { width: 16px; height: 16px; }
+    #hamburger { display: none; }
+
+    /* Mobile Nav */
+    .mobile-nav {
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
+      background: var(--bg); z-index: 850; padding: 2rem;
+      flex-direction: column; gap: 1.5rem;
+      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-nav.open { transform: translateX(0); display: flex; }
+    .mobile-nav a {
+      font-family: var(--font-head); font-size: 1.8rem;
+      color: var(--text2); transition: color 0.2s;
+    }
+    .mobile-nav a:hover { color: var(--accent); }
+
+    /* ─── Search Modal ─── */
+    .search-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7); z-index: 950;
+      align-items: flex-start; justify-content: center;
+      padding-top: 10vh;
+    }
+    .search-overlay.open { display: flex; }
+    .search-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; width: min(640px, 90vw);
+      padding: 0; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      animation: slideDown 0.2s ease;
+    }
+    @keyframes slideDown { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:none; } }
+    .search-input-wrap { display: flex; align-items: center; padding: 1rem 1.5rem; gap: 1rem; }
+    .search-input-wrap svg { color: var(--text3); flex-shrink: 0; }
+    #search-input {
+      flex: 1; background: none; border: none; outline: none;
+      font-family: var(--font-body); font-size: 1.1rem; color: var(--text);
+    }
+    #search-input::placeholder { color: var(--text3); }
+    .search-results { border-top: 1px solid var(--border); max-height: 400px; overflow-y: auto; }
+    .search-result-item {
+      padding: 1rem 1.5rem; cursor: pointer; transition: background 0.15s;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .search-result-item:hover { background: var(--bg3); }
+    .sri-cat { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+    .sri-title { font-size: 0.95rem; color: var(--text); }
+
+    /* ─── Page Router ─── */
+    .page { display: none; padding-top: var(--nav-h); min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(40px, 8vw, 100px) clamp(20px, 5vw, 60px);
+      position: relative; overflow: hidden;
+      max-width: var(--max-w); margin: 0 auto;
+    }
+    .hero-grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.75rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem; opacity: 0;
+      animation: fadeUp 0.8s ease 0.1s forwards;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: 1.05; letter-spacing: -0.02em;
+      color: var(--text); max-width: 800px;
+      opacity: 0; animation: fadeUp 0.8s ease 0.25s forwards;
+    }
+    .hero-title em { color: var(--accent); font-style: italic; }
+    .hero-sub {
+      margin-top: 1.75rem; font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text2); max-width: 500px; line-height: 1.65;
+      opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+    .hero-actions {
+      margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s ease 0.55s forwards;
+    }
+    .btn-primary {
+      padding: 0.75rem 1.75rem; background: var(--accent);
+      color: var(--bg); border: none; border-radius: var(--radius);
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+      letter-spacing: 0.02em; transition: all 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+    .btn-outline {
+      padding: 0.75rem 1.75rem; background: transparent;
+      color: var(--text2); border: 1px solid var(--border);
+      border-radius: var(--radius); font-family: var(--font-body);
+      font-size: 0.9rem; transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-scroll {
+      margin-top: 4rem; display: flex; align-items: center; gap: 0.75rem;
+      color: var(--text3); font-size: 0.8rem; letter-spacing: 0.1em;
+      opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards;
+    }
+    .scroll-line { width: 40px; height: 1px; background: var(--text3); }
+    .hero-stats {
+      margin-top: 5rem; display: flex; gap: 3rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s ease 0.85s forwards;
+    }
+    .stat { }
+    .stat-n { font-family: var(--font-display); font-size: 2rem; color: var(--text); }
+    .stat-l { font-size: 0.78rem; color: var(--text3); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.15rem; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Section Wrappers ─── */
+    section { padding: clamp(60px, 8vw, 120px) clamp(20px, 5vw, 60px); max-width: var(--max-w); margin: 0 auto; }
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.7rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      letter-spacing: -0.02em; line-height: 1.1; color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .section-sub { color: var(--text2); font-size: 1rem; max-width: 480px; margin-bottom: 3rem; }
+    .section-header { margin-bottom: 3rem; }
+    .divider { width: 100%; height: 1px; background: var(--border); margin: 0; }
+
+    /* ─── Featured Articles Grid ─── */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.5px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .feat-card {
+      background: var(--surface);
+      padding: 2rem; cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .feat-card:hover { background: var(--bg3); }
+    .feat-card.large { grid-row: 1 / 3; border-right: 1px solid var(--border); }
+    .feat-card.small { border-bottom: 1px solid var(--border); }
+    .feat-card.small:last-child { border-bottom: none; }
+    .card-cat {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .card-title {
+      font-family: var(--font-head); font-size: 1.35rem;
+      line-height: 1.3; color: var(--text); margin-bottom: 0.75rem;
+    }
+    .feat-card.large .card-title { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+    .card-excerpt { color: var(--text2); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem; }
+    .card-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.75rem; color: var(--text3); }
+    .card-meta .dot { opacity: 0.4; }
+    .card-img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      border-radius: 8px; margin-bottom: 1.5rem;
+      background: var(--bg3);
+    }
+    .card-img-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      border-radius: 8px; margin-bottom: 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+
+    /* ─── Post List ─── */
+    .post-list { display: flex; flex-direction: column; gap: 0; }
+    .post-item {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 2rem; align-items: start;
+      padding: 1.75rem 0; border-bottom: 1px solid var(--border);
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .post-item:hover { opacity: 0.75; }
+    .post-item:first-child { border-top: 1px solid var(--border); }
+    .pi-cat { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+    .pi-title { font-family: var(--font-head); font-size: 1.15rem; line-height: 1.35; color: var(--text); margin-bottom: 0.5rem; }
+    .pi-excerpt { font-size: 0.88rem; color: var(--text2); line-height: 1.55; }
+    .pi-meta { font-size: 0.75rem; color: var(--text3); margin-top: 0.6rem; }
+    .pi-thumb {
+      width: 120px; height: 80px; object-fit: cover;
+      border-radius: 6px; background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; flex-shrink: 0;
+    }
+
+    /* ─── Categories Grid ─── */
+    .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .cat-card {
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 1.5rem; cursor: pointer;
+      background: var(--surface); transition: all 0.2s;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .cat-card:hover { border-color: var(--accent); transform: translateY(-2px); background: var(--bg3); }
+    .cat-icon { font-size: 1.75rem; }
+    .cat-name { font-family: var(--font-head); font-size: 1.05rem; color: var(--text); }
+    .cat-count { font-size: 0.78rem; color: var(--text3); }
+
+    /* ─── Newsletter ─── */
+    .newsletter {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: clamp(2rem, 5vw, 4rem);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .newsletter::before {
+      content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-dim), transparent 70%);
+      pointer-events: none;
+    }
+    .newsletter-form { display: flex; gap: 0.75rem; max-width: 460px; margin: 1.5rem auto 0; flex-wrap: wrap; justify-content: center; }
+    .newsletter-input {
+      flex: 1; min-width: 220px; padding: 0.75rem 1.25rem;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text);
+      font-family: var(--font-body); font-size: 0.9rem;
+    }
+    .newsletter-input:focus { outline: none; border-color: var(--accent); }
+    .newsletter-input::placeholder { color: var(--text3); }
+
+    /* ─── Blog Page ─── */
+    .blog-header { padding: clamp(40px, 6vw, 80px) clamp(20px, 5vw, 60px) 0; max-width: var(--max-w); margin: 0 auto; }
+    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .filter-tab {
+      padding: 0.45rem 1rem; border: 1px solid var(--border);
+      border-radius: 50px; background: transparent; color: var(--text2);
+      font-family: var(--font-body); font-size: 0.82rem; transition: all 0.2s;
+    }
+    .filter-tab.active, .filter-tab:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+    .blog-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; cursor: pointer;
+      transition: all 0.25s; display: flex; flex-direction: column;
+    }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--accent); }
+    .blog-card-img {
+      width: 100%; aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; background: var(--bg3);
+    }
+    .blog-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .blog-card-title { font-family: var(--font-head); font-size: 1.15rem; line-height: 1.35; color: var(--text); margin-bottom: 0.6rem; flex: 1; }
+    .blog-card-meta { font-size: 0.75rem; color: var(--text3); margin-top: 1rem; display: flex; gap: 1rem; }
+
+    /* ─── Article Page ─── */
+    .article-wrap { max-width: var(--prose-w); margin: 0 auto; padding: 3rem clamp(20px, 4vw, 40px); }
+    .article-header { margin-bottom: 3rem; }
+    .article-cat { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+    .article-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0.75rem 0; }
+    .article-meta { color: var(--text3); font-size: 0.82rem; margin-top: 1.25rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+    .article-meta .author { color: var(--text2); font-weight: 500; }
+    .progress-wrap { margin: 1.5rem 0; }
+    .article-progress { height: 2px; background: var(--border); border-radius: 2px; }
+    .article-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.1s; }
+    .toc {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem; margin: 2rem 0;
+    }
+    .toc-title { font-family: var(--font-head); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text2); margin-bottom: 1rem; }
+    .toc ol { list-style: none; counter-reset: toc; }
+    .toc li { counter-increment: toc; padding: 0.3rem 0; font-size: 0.9rem; }
+    .toc li::before { content: counter(toc) ". "; color: var(--accent); font-family: var(--font-mono); font-size: 0.75rem; }
+    .toc a { color: var(--text2); transition: color 0.2s; }
+    .toc a:hover { color: var(--accent); }
+    .prose { font-size: 1.05rem; line-height: 1.8; }
+    .prose h2 { font-family: var(--font-head); font-size: 1.6rem; margin: 2.5rem 0 1rem; color: var(--text); }
+    .prose h3 { font-family: var(--font-head); font-size: 1.2rem; margin: 2rem 0 0.75rem; color: var(--text); }
+    .prose p { margin-bottom: 1.5rem; color: var(--text2); }
+    .prose blockquote {
+      border-left: 3px solid var(--accent); margin: 2rem 0;
+      padding: 1rem 1.5rem; color: var(--text2);
+      font-style: italic; font-size: 1.1rem;
+      background: var(--accent-dim); border-radius: 0 8px 8px 0;
+    }
+    .prose pre {
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem; overflow-x: auto;
+      margin: 1.5rem 0; font-family: var(--font-mono); font-size: 0.85rem;
+    }
+    .prose code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      background: var(--code-bg); padding: 0.15em 0.4em;
+      border-radius: 4px; color: var(--accent);
+    }
+    .prose pre code { background: none; padding: 0; color: var(--text); }
+    .kw { color: var(--purple); }
+    .fn { color: var(--blue); }
+    .str { color: var(--green); }
+    .cm { color: var(--text3); font-style: italic; }
+    .num { color: var(--red); }
+    .share-bar { display: flex; gap: 0.75rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); align-items: center; flex-wrap: wrap; }
+    .share-label { font-size: 0.8rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.5rem; }
+    .share-btn { padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.82rem; color: var(--text2); background: var(--surface); transition: all 0.2s; }
+    .share-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── Books Page ─── */
+    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2rem; }
+    .book-card {
+      cursor: pointer; transition: transform 0.25s;
+    }
+    .book-card:hover { transform: translateY(-4px); }
+    .book-cover {
+      width: 100%; aspect-ratio: 2/3; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; margin-bottom: 1rem;
+      box-shadow: 8px 8px 24px rgba(0,0,0,0.3);
+      position: relative; overflow: hidden;
+    }
+    .book-cover::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 12px; background: rgba(0,0,0,0.15);
+    }
+    .book-title { font-family: var(--font-head); font-size: 1rem; line-height: 1.3; margin-bottom: 0.3rem; }
+    .book-author { font-size: 0.82rem; color: var(--text3); margin-bottom: 0.5rem; }
+    .stars { color: var(--accent); font-size: 0.85rem; }
+
+    /* Book Detail */
+    .book-detail { max-width: 760px; margin: 0 auto; padding: 2rem clamp(20px, 4vw, 40px); }
+    .book-detail-header { display: flex; gap: 2.5rem; margin-bottom: 3rem; align-items: flex-start; flex-wrap: wrap; }
+    .book-detail-cover { width: 180px; flex-shrink: 0; aspect-ratio: 2/3; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4rem; box-shadow: 12px 12px 32px rgba(0,0,0,0.35); }
+    .key-lessons { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .lesson-item { padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; display: flex; gap: 0.75rem; }
+    .lesson-item:last-child { border-bottom: none; }
+    .lesson-num { color: var(--accent); font-family: var(--font-mono); font-size: 0.75rem; padding-top: 0.15rem; }
+    .quote-block { border-left: 3px solid var(--accent); padding: 1rem 1.5rem; margin: 1rem 0; font-style: italic; color: var(--text2); background: var(--accent-dim); border-radius: 0 8px 8px 0; }
+
+    /* ─── Coding Page ─── */
+    .coding-search-bar { display: flex; align-items: center; gap: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem 1.25rem; margin-bottom: 2rem; }
+    .coding-search-bar input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-family: var(--font-body); font-size: 0.95rem; }
+    .coding-search-bar input::placeholder { color: var(--text3); }
+    .snippet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+    .snippet-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.2s; }
+    .snippet-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .snippet-header { padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid var(--border); }
+    .snippet-lang { font-family: var(--font-mono); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 4px; background: var(--accent-dim); color: var(--accent); }
+    .snippet-title { font-family: var(--font-head); font-size: 1rem; color: var(--text); }
+    .snippet-pre { margin: 0; padding: 1.25rem; background: var(--code-bg); font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.6; overflow-x: auto; max-height: 160px; }
+    .snippet-footer { padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .tag { font-size: 0.68rem; padding: 0.2rem 0.6rem; border: 1px solid var(--border); border-radius: 50px; color: var(--text3); }
+
+    /* ─── Philosophy Page ─── */
+    .phil-post { max-width: 600px; margin: 0 auto; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .phil-post:last-child { border-bottom: none; }
+    .phil-quote { font-family: var(--font-display); font-size: clamp(1.2rem, 2.5vw, 1.7rem); line-height: 1.4; font-style: italic; color: var(--text); margin-bottom: 1rem; }
+    .phil-body { font-size: 0.95rem; color: var(--text2); line-height: 1.75; }
+    .phil-date { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--text3); text-transform: uppercase; margin-top: 1rem; }
+
+    /* ─── About Page ─── */
+    .about-wrap { max-width: 720px; margin: 0 auto; padding: 3rem clamp(20px, 4vw, 40px); }
+    .about-avatar { width: 96px; height: 96px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 2rem; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin: 2rem 0; }
+    .skill-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--text2); }
+    .skill-icon { font-size: 1.1rem; }
+    .timeline { margin: 2rem 0; }
+    .timeline-item { display: flex; gap: 1.5rem; padding-bottom: 2rem; position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: 7px; top: 16px; bottom: 0; width: 1px; background: var(--border); }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 4px; border: 3px solid var(--bg); box-shadow: 0 0 0 1px var(--accent); }
+    .timeline-content { flex: 1; }
+    .timeline-year { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; }
+    .timeline-title { font-family: var(--font-head); font-size: 1rem; color: var(--text); margin: 0.25rem 0; }
+    .timeline-desc { font-size: 0.88rem; color: var(--text2); }
+    .social-links { display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0; }
+    .social-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.1rem; border: 1px solid var(--border); border-radius: var(--radius); color: var(--text2); font-size: 0.85rem; transition: all 0.2s; }
+    .social-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── Contact Page ─── */
+    .contact-wrap { max-width: 620px; margin: 0 auto; padding: 3rem clamp(20px, 4vw, 40px); }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-label { display: block; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.5rem; font-family: var(--font-mono); }
+    .form-input, .form-textarea {
+      width: 100%; padding: 0.85rem 1.1rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text);
+      font-family: var(--font-body); font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--accent); }
+    .form-textarea { min-height: 160px; resize: vertical; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text3); }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem clamp(20px, 5vw, 60px);
+      max-width: var(--max-w); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo { font-family: var(--font-display); font-size: 1.1rem; }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-size: 0.78rem; color: var(--text3); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.78rem; color: var(--text3); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ─── Toast ─── */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem 1.5rem;
+      font-size: 0.9rem; color: var(--text);
+      box-shadow: var(--shadow); z-index: 999;
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ─── Back Button ─── */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: var(--text3); letter-spacing: 0.05em;
+      cursor: pointer; transition: color 0.2s; margin-bottom: 2rem;
+      background: none; border: none; font-family: var(--font-body);
+    }
+    .back-btn:hover { color: var(--accent); }
+
+    /* ─── Utilities ─── */
+    .text-accent { color: var(--accent); }
+    .mt-1 { margin-top: 0.5rem; } .mt-2 { margin-top: 1rem; } .mt-3 { margin-top: 1.5rem; }
+    .hidden { display: none !important; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      #hamburger { display: flex; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .feat-card.large { border-right: none; border-bottom: 1px solid var(--border); }
+      .post-item { grid-template-columns: 1fr; }
+      .pi-thumb { display: none; }
+      .footer { flex-direction: column; }
+      .book-detail-header { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .hero-stats { gap: 2rem; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-input { min-width: 100%; }
+    }
+
+    /* ─── Scroll animations ─── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
 </head>
-
 <body>
+  <div id="progress-bar"></div>
+  <div class="hero-grain"></div>
 
-<h1>Hello I'm Vikash</h1>
-<p>Welcome to my personal website</p>
+  <!-- Navigation -->
+  <nav>
+    <a class="nav-logo" onclick="navigate('home')" style="cursor:pointer">
+      Logicity <span>by Vikash</span>
+    </a>
+    <ul class="nav-links">
+      <li><a onclick="navigate('blog')" id="nav-blog">Writing</a></li>
+      <li><a onclick="navigate('books')" id="nav-books">Books</a></li>
+      <li><a onclick="navigate('coding')" id="nav-coding">Code</a></li>
+      <li><a onclick="navigate('philosophy')" id="nav-philosophy">Philosophy</a></li>
+      <li><a onclick="navigate('about')" id="nav-about">About</a></li>
+      <li><a onclick="navigate('contact')" id="nav-contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="btn-icon" onclick="toggleSearch()" title="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="btn-icon" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="btn-icon" id="hamburger" onclick="toggleMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
 
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a onclick="navigate('blog');closeMenu()">Writing</a>
+    <a onclick="navigate('books');closeMenu()">Books</a>
+    <a onclick="navigate('coding');closeMenu()">Code</a>
+    <a onclick="navigate('philosophy');closeMenu()">Philosophy</a>
+    <a onclick="navigate('about');closeMenu()">About</a>
+    <a onclick="navigate('contact');closeMenu()">Contact</a>
+  </div>
+
+  <!-- Search Modal -->
+  <div class="search-overlay" id="search-overlay" onclick="toggleSearch()">
+    <div class="search-box" onclick="event.stopPropagation()">
+      <div class="search-input-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="search-input" placeholder="Search articles, books, snippets…" oninput="doSearch(this.value)" autocomplete="off" />
+        <kbd style="font-size:0.7rem;color:var(--text3);border:1px solid var(--border);padding:2px 6px;border-radius:4px">ESC</kbd>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- ═══ HOME PAGE ═══ -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-eyebrow">// Est. 2024 &nbsp;·&nbsp; Knowledge Hub</div>
+      <h1 class="hero-title">Exploring <em>Coding,</em><br>Philosophy,<br>and Ideas</h1>
+      <p class="hero-sub">A personal space where curiosity meets clarity. I write about code, philosophy, books, and the art of thinking clearly.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="navigate('blog')">Read the Blog</button>
+        <button class="btn-outline" onclick="navigate('about')">About Me</button>
+      </div>
+      <div class="hero-scroll"><div class="scroll-line"></div> Scroll to explore</div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-n">42</div><div class="stat-l">Articles</div></div>
+        <div class="stat"><div class="stat-n">28</div><div class="stat-l">Books Read</div></div>
+        <div class="stat"><div class="stat-n">15</div><div class="stat-l">Projects</div></div>
+        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Years of Writing</div></div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-header reveal">
+        <div class="section-label">Featured</div>
+        <h2 class="section-title">Editor's Pick</h2>
+        <p class="section-sub">Hand-curated pieces worth your time and attention.</p>
+      </div>
+      <div class="featured-grid reveal">
+        <div class="feat-card large" onclick="navigate('article','stoic-morning')">
+          <div class="card-img-placeholder" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">🌄</div>
+          <div class="card-cat">Philosophy · 8 min read</div>
+          <h3 class="card-title">The Stoic Morning: How Marcus Aurelius Built Unbreakable Discipline</h3>
+          <p class="card-excerpt">Every morning, Marcus Aurelius reminded himself of the same truths. Not because he was afraid, but because clarity is a practice, not a destination…</p>
+          <div class="card-meta"><span>Jan 12, 2025</span><span class="dot">·</span><span>Vikash</span></div>
+        </div>
+        <div class="feat-card small" onclick="navigate('article','binary-search')">
+          <div class="card-cat">Coding · 5 min read</div>
+          <h3 class="card-title">Binary Search Beyond Arrays</h3>
+          <p class="card-excerpt">The real power of binary search isn't in sorted lists — it's in the concept of eliminating half the solution space.</p>
+          <div class="card-meta"><span>Feb 3, 2025</span></div>
+        </div>
+        <div class="feat-card small" onclick="navigate('article','deep-work-notes')">
+          <div class="card-cat">Book Summary · 6 min read</div>
+          <h3 class="card-title">Deep Work by Cal Newport — Key Lessons</h3>
+          <p class="card-excerpt">In a distracted world, depth is a superpower. Here are the ideas that changed how I approach focus.</p>
+          <div class="card-meta"><span>Mar 1, 2025</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section>
+      <div class="section-header reveal">
+        <div class="section-label">Latest</div>
+        <h2 class="section-title">Recent Writing</h2>
+      </div>
+      <div class="post-list">
+        <div class="post-item reveal" onclick="navigate('article','stoic-morning')">
+          <div>
+            <div class="pi-cat">Philosophy</div>
+            <div class="pi-title">The Stoic Morning: How Marcus Aurelius Built Unbreakable Discipline</div>
+            <div class="pi-excerpt">Every morning, Marcus Aurelius reminded himself of the same truths…</div>
+            <div class="pi-meta">Jan 12, 2025 · 8 min read</div>
+          </div>
+          <div class="pi-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">🌄</div>
+        </div>
+        <div class="post-item reveal" onclick="navigate('article','binary-search')">
+          <div>
+            <div class="pi-cat">Coding</div>
+            <div class="pi-title">Binary Search Beyond Arrays</div>
+            <div class="pi-excerpt">The real power of binary search isn't in sorted lists…</div>
+            <div class="pi-meta">Feb 3, 2025 · 5 min read</div>
+          </div>
+          <div class="pi-thumb" style="background:linear-gradient(135deg,#0f1923,#1a3a4a)">💻</div>
+        </div>
+        <div class="post-item reveal" onclick="navigate('article','deep-work-notes')">
+          <div>
+            <div class="pi-cat">Book Summary</div>
+            <div class="pi-title">Deep Work by Cal Newport — Key Lessons</div>
+            <div class="pi-excerpt">In a distracted world, depth is a superpower…</div>
+            <div class="pi-meta">Mar 1, 2025 · 6 min read</div>
+          </div>
+          <div class="pi-thumb" style="background:linear-gradient(135deg,#1a1000,#3a2800)">📗</div>
+        </div>
+        <div class="post-item reveal" onclick="navigate('article','why-i-code')">
+          <div>
+            <div class="pi-cat">Personal Thoughts</div>
+            <div class="pi-title">Why I Code — A Student's Honest Reflection</div>
+            <div class="pi-excerpt">It was never about the job. It started with curiosity and a blank terminal…</div>
+            <div class="pi-meta">Mar 15, 2025 · 4 min read</div>
+          </div>
+          <div class="pi-thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a3a1a)">🌿</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:2.5rem">
+        <button class="btn-outline" onclick="navigate('blog')">View All Articles →</button>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section>
+      <div class="section-header reveal">
+        <div class="section-label">Explore</div>
+        <h2 class="section-title">Browse by Topic</h2>
+        <p class="section-sub">Everything organized in one place.</p>
+      </div>
+      <div class="categories-grid">
+        <div class="cat-card reveal" onclick="navigate('philosophy')"><div class="cat-icon">🏛️</div><div class="cat-name">Philosophy</div><div class="cat-count">12 essays</div></div>
+        <div class="cat-card reveal" onclick="navigate('coding')"><div class="cat-icon">⌨️</div><div class="cat-name">Coding</div><div class="cat-count">18 tutorials</div></div>
+        <div class="cat-card reveal" onclick="navigate('books')"><div class="cat-icon">📚</div><div class="cat-name">Book Summaries</div><div class="cat-count">28 books</div></div>
+        <div class="cat-card reveal" onclick="navigate('blog')"><div class="cat-icon">🌱</div><div class="cat-name">Personal Thoughts</div><div class="cat-count">8 reflections</div></div>
+        <div class="cat-card reveal" onclick="navigate('blog')"><div class="cat-icon">📝</div><div class="cat-name">Learning Notes</div><div class="cat-count">14 notes</div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="newsletter reveal">
+        <div class="section-label">Newsletter</div>
+        <h2 class="section-title" style="margin-bottom:0.5rem">Stay in the loop</h2>
+        <p style="color:var(--text2);font-size:0.95rem">One thoughtful email per week. Ideas on philosophy, code, and learning.</p>
+        <div class="newsletter-form">
+          <input class="newsletter-input" type="email" placeholder="your@email.com" id="nl-email" />
+          <button class="btn-primary" onclick="subscribeNewsletter()">Subscribe</button>
+        </div>
+        <p style="font-size:0.75rem;color:var(--text3);margin-top:1rem">No spam, ever. Unsubscribe anytime.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <div class="footer-logo">Logicity <span>by Vikash</span></div>
+        <div class="footer-copy">© 2025 Vikash. All rights reserved.</div>
+      </div>
+      <div class="footer-links">
+        <a onclick="navigate('blog')">Writing</a>
+        <a onclick="navigate('about')">About</a>
+        <a onclick="navigate('contact')">Contact</a>
+        <a href="#" title="RSS Feed">RSS</a>
+      </div>
+      <div style="display:flex;gap:0.75rem">
+        <button class="btn-icon" title="GitHub" onclick="showToast('Opening GitHub…')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></button>
+        <button class="btn-icon" title="Twitter" onclick="showToast('Opening Twitter…')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+        <button class="btn-icon" title="LinkedIn" onclick="showToast('Opening LinkedIn…')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ═══ BLOG PAGE ═══ -->
+  <div class="page" id="page-blog">
+    <div class="blog-header">
+      <div class="section-label">All Writing</div>
+      <h1 class="section-title" style="margin-bottom:0.5rem">The Blog</h1>
+      <p class="section-sub">Thoughts on code, philosophy, books, and learning.</p>
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" onclick="filterBlog('all',this)">All</button>
+        <button class="filter-tab" onclick="filterBlog('philosophy',this)">Philosophy</button>
+        <button class="filter-tab" onclick="filterBlog('coding',this)">Coding</button>
+        <button class="filter-tab" onclick="filterBlog('book-summary',this)">Book Summaries</button>
+        <button class="filter-tab" onclick="filterBlog('personal',this)">Personal Thoughts</button>
+        <button class="filter-tab" onclick="filterBlog('notes',this)">Learning Notes</button>
+      </div>
+    </div>
+    <section style="padding-top:1rem">
+      <div class="blog-grid" id="blog-grid"></div>
+    </section>
+    <footer>
+      <div><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-copy">© 2025 Vikash</div></div>
+      <div class="footer-links"><a onclick="navigate('home')">Home</a><a onclick="navigate('about')">About</a></div>
+    </footer>
+  </div>
+
+  <!-- ═══ ARTICLE PAGE ═══ -->
+  <div class="page" id="page-article">
+    <div class="article-wrap">
+      <button class="back-btn" onclick="history.back()">← Back</button>
+      <div id="article-content"></div>
+    </div>
+    <footer>
+      <div><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-copy">© 2025 Vikash</div></div>
+      <div class="footer-links"><a onclick="navigate('blog')">More Articles</a></div>
+    </footer>
+  </div>
+
+  <!-- ═══ BOOKS PAGE ═══ -->
+  <div class="page" id="page-books">
+    <section>
+      <div class="section-label">Library</div>
+      <h1 class="section-title" style="margin-bottom:0.5rem">Books I've Read</h1>
+      <p class="section-sub">Every book I read leaves a mark. Here are my notes, summaries, and ratings.</p>
+      <div class="books-grid" id="books-grid"></div>
+    </section>
+    <footer>
+      <div><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-copy">© 2025 Vikash</div></div>
+      <div class="footer-links"><a onclick="navigate('home')">Home</a></div>
+    </footer>
+  </div>
+
+  <!-- ═══ BOOK DETAIL PAGE ═══ -->
+  <div class="page" id="page-book-detail">
+    <div class="book-detail">
+      <button class="back-btn" onclick="navigate('books')">← Back to Library</button>
+      <div id="book-detail-content"></div>
+    </div>
+    <footer>
+      <div><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-copy">© 2025 Vikash</div></div>
+    </footer>
+  </div>
+
+  <!-- ═══ CODING PAGE ═══ -->
+  <div class="page" id="page-coding">
+    <section>
+      <div class="section-label">Code</div>
+      <h1 class="section-title" style="margin-bottom:0.5rem">Coding Corner</h1>
+      <p class="section-sub">Tutorials, competitive programming notes, and useful snippets.</p>
+      <div class="coding-search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--text3)"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input placeholder="Search snippets…" oninput="filterSnippets(this.value)" />
+      </div>
+      <div class="snippet-grid" id="snippet-grid"></div>
+    </section>
+    <footer>
+      <div><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-copy">© 2025 Vikash</div></div>
+    </footer>
+  </div>
+
+  <!-- ═══ PHILOSOPHY PAGE ═══ -->
+  <div class="page" id="page-philosophy">
+    <section>
+      <div class="section-label">Deep Thoughts</div>
+      <h1 class="section-title" style="margin-bottom:0.5rem">Philosophy</h1>
+      <p class="section-sub">Reflections on living well, thinking clearly, and being human.</p>
+      <div id="phil-posts"></div>
+    </section>
+    <footer>
+      <div><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-copy">© 2025 Vikash</div></div>
+    </footer>
+  </div>
+
+  <!-- ═══ ABOUT PAGE ═══ -->
+  <div class="page" id="page-about">
+    <div class="about-wrap">
+      <div class="about-avatar">👨‍💻</div>
+      <div class="section-label">Hello, I'm</div>
+      <h1 class="section-title" style="margin-bottom:1rem">Vikash</h1>
+      <p style="color:var(--text2);font-size:1.05rem;line-height:1.75;margin-bottom:1.5rem">
+        I'm a student who believes that the best life is one spent in curious pursuit — of ideas, of mastery, of meaning. I write to think clearly, and I build to understand deeply.
+      </p>
+      <p style="color:var(--text2);font-size:1.05rem;line-height:1.75;margin-bottom:2rem">
+        This site, <em style="color:var(--accent)">Logicity</em>, is my digital garden — a place where logic meets the city of ideas. Here I share what I'm learning in coding, what I'm thinking about philosophy, and which books are reshaping how I see the world.
+      </p>
+
+      <div class="section-label" style="margin-top:2.5rem">Interests</div>
+      <div class="skills-grid" style="margin-top:1rem">
+        <div class="skill-pill"><span class="skill-icon">⌨️</span> Competitive Programming</div>
+        <div class="skill-pill"><span class="skill-icon">🏛️</span> Stoic Philosophy</div>
+        <div class="skill-pill"><span class="skill-icon">📚</span> Avid Reading</div>
+        <div class="skill-pill"><span class="skill-icon">🧠</span> Deep Learning</div>
+        <div class="skill-pill"><span class="skill-icon">🌱</span> Personal Growth</div>
+        <div class="skill-pill"><span class="skill-icon">✍️</span> Long-form Writing</div>
+        <div class="skill-pill"><span class="skill-icon">🔭</span> Epistemology</div>
+        <div class="skill-pill"><span class="skill-icon">⚙️</span> Systems Thinking</div>
+      </div>
+
+      <div class="section-label" style="margin-top:3rem">My Journey</div>
+      <div class="timeline" style="margin-top:1.5rem">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-title">Started coding seriously</div>
+            <div class="timeline-desc">Picked up Python, fell in love with algorithms and problem-solving.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2023</div>
+            <div class="timeline-title">Discovered philosophy</div>
+            <div class="timeline-desc">Read Marcus Aurelius. Everything changed. Started journaling seriously.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-title">Built Logicity</div>
+            <div class="timeline-desc">Launched this blog to share ideas and connect with curious minds.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-title">Growing deeper</div>
+            <div class="timeline-desc">Studying CS, writing weekly, reading 2 books a month.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:2rem">Find me online</div>
+      <div class="social-links">
+        <a class="social-link" href="#" onclick="showToast('GitHub')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> GitHub</a>
+        <a class="social-link" href="#" onclick="showToast('Twitter')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Twitter</a>
+        <a class="social-link" href="#" onclick="showToast('LinkedIn')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
+        <a class="social-link" href="mailto:vikash@example.com"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg> Email</a>
+      </div>
+    </div>
+    <footer>
+      <div><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-copy">© 2025 Vikash</div></div>
+      <div class="footer-links"><a onclick="navigate('contact')">Get in touch</a></div>
+    </footer>
+  </div>
+
+  <!-- ═══ CONTACT PAGE ═══ -->
+  <div class="page" id="page-contact">
+    <div class="contact-wrap">
+      <div class="section-label">Get in Touch</div>
+      <h1 class="section-title" style="margin-bottom:0.5rem">Contact</h1>
+      <p style="color:var(--text2);margin-bottom:2.5rem;font-size:0.95rem">Have an idea, a book recommendation, or just want to say hello? I'd love to hear from you.</p>
+
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input class="form-input" type="text" placeholder="Your name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <input class="form-input" type="text" placeholder="What's on your mind?" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Write your message here…"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%" onclick="showToast('Message sent! I'll get back to you soon ✓')">Send Message</button>
+
+      <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <div class="section-label" style="margin-bottom:1rem">Or reach me directly</div>
+        <div class="social-links">
+          <a class="social-link" href="mailto:vikash@example.com">📧 vikash@example.com</a>
+          <a class="social-link" href="#" onclick="showToast('GitHub')">GitHub</a>
+          <a class="social-link" href="#" onclick="showToast('Twitter')">Twitter</a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-copy">© 2025 Vikash</div></div>
+    </footer>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+  // ═══ DATA ═══
+  const POSTS = [
+    { id:'stoic-morning', title:'The Stoic Morning: How Marcus Aurelius Built Unbreakable Discipline', cat:'philosophy', excerpt:'Every morning, Marcus Aurelius reminded himself of the same truths. Not because he was afraid, but because clarity is a practice.', date:'Jan 12, 2025', time:'8 min read', emoji:'🌄', bg:'linear-gradient(135deg,#1a1a2e,#16213e)' },
+    { id:'binary-search', title:'Binary Search Beyond Arrays', cat:'coding', excerpt:'The real power of binary search isn't in sorted lists — it\'s in the concept of eliminating half the solution space.', date:'Feb 3, 2025', time:'5 min read', emoji:'💻', bg:'linear-gradient(135deg,#0f1923,#1a3a4a)' },
+    { id:'deep-work-notes', title:'Deep Work by Cal Newport — Key Lessons', cat:'book-summary', excerpt:'In a distracted world, depth is a superpower. Here are the ideas that changed how I approach focus.', date:'Mar 1, 2025', time:'6 min read', emoji:'📗', bg:'linear-gradient(135deg,#1a1000,#3a2800)' },
+    { id:'why-i-code', title:'Why I Code — A Student\'s Honest Reflection', cat:'personal', excerpt:'It was never about the job. It started with curiosity and a blank terminal that felt infinite.', date:'Mar 15, 2025', time:'4 min read', emoji:'🌿', bg:'linear-gradient(135deg,#0a1a0a,#1a3a1a)' },
+    { id:'learning-to-learn', title:'Learning How to Learn — Meta-Skills That Matter', cat:'notes', excerpt:'The best learners aren\'t necessarily the smartest. They understand the process of learning itself.', date:'Apr 2, 2025', time:'7 min read', emoji:'🧠', bg:'linear-gradient(135deg,#1a0a1a,#3a1a3a)' },
+    { id:'socrates-question', title:'Why Socrates Was Wrong (And Right) About Knowledge', cat:'philosophy', excerpt:'The famous "I know that I know nothing" hides a deeper truth about the nature of expertise.', date:'Apr 18, 2025', time:'9 min read', emoji:'🏛️', bg:'linear-gradient(135deg,#1a1500,#2a2000)' },
+    { id:'dynamic-programming', title:'Dynamic Programming: From Fear to Fluency', cat:'coding', excerpt:'DP isn\'t magic. It\'s a thinking pattern that emerges once you understand two things: subproblems and states.', date:'May 5, 2025', time:'12 min read', emoji:'⚡', bg:'linear-gradient(135deg,#001a1a,#003a3a)' },
+    { id:'atomic-habits', title:'Atomic Habits — Why Small Changes Create Remarkable Results', cat:'book-summary', excerpt:'James Clear distills the science of habit formation into one simple truth: systems beat goals.', date:'May 22, 2025', time:'5 min read', emoji:'⚗️', bg:'linear-gradient(135deg,#1a0a00,#3a2000)' },
+  ];
+
+  const BOOKS = [
+    { id:'meditations', title:'Meditations', author:'Marcus Aurelius', emoji:'🏛️', bg:'linear-gradient(135deg,#1a1500,#2e2400)', rating:5, summary:'A personal journal of Stoic philosophy from the Roman Emperor. Raw, honest, and timeless.', lessons:['We suffer more in imagination than in reality','Focus only on what you control','Every morning is a new beginning','The obstacle is the way'], quotes:['The impediment to action advances action. What stands in the way becomes the way.','You have power over your mind, not outside events. Realize this, and you will find strength.'] },
+    { id:'deep-work', title:'Deep Work', author:'Cal Newport', emoji:'📗', bg:'linear-gradient(135deg,#001a00,#003300)', rating:5, summary:'Why focused, distraction-free work is the key skill of the 21st century.', lessons:['Deep work produces rare and valuable results','Shallow work is everywhere but worth little','Schedule your depth in advance','Embrace boredom as a feature, not a bug'], quotes:['Clarity about what matters provides clarity about what does not.','The ability to perform deep work is becoming increasingly rare.'] },
+    { id:'atomic-habits-book', title:'Atomic Habits', author:'James Clear', emoji:'⚗️', bg:'linear-gradient(135deg,#1a0a00,#3a2000)', rating:5, summary:'Tiny changes, remarkable results. The definitive guide to building good habits and breaking bad ones.', lessons:['Habits are the compound interest of self-improvement','Make good habits obvious, attractive, easy, satisfying','Identity-based habits last longer','Never miss twice'], quotes:['You do not rise to the level of your goals, you fall to the level of your systems.'] },
+    { id:'thinking-fast', title:'Thinking, Fast and Slow', author:'Daniel Kahneman', emoji:'🧠', bg:'linear-gradient(135deg,#001a1a,#002a2a)', rating:4, summary:'A Nobel laureate\'s exploration of the two systems of thinking and how they shape our decisions.', lessons:['System 1 is fast, intuitive, and often wrong','Cognitive biases are predictable and systematic','Overconfidence is the most dangerous bias','Loss aversion shapes most decisions'], quotes:['Nothing in life is as important as you think it is while you are thinking about it.'] },
+    { id:'show-your-work', title:'Show Your Work!', author:'Austin Kleon', emoji:'✏️', bg:'linear-gradient(135deg,#0a0a1a,#1a1a2a)', rating:4, summary:'A manifesto for sharing your creative process and building an audience as you learn.', lessons:['Share something small every day','Teach what you know','Don\'t wait until you\'re an expert','Credit your influences generously'], quotes:['The best way to get started on the path to sharing your work is to think about what you want to learn, and make a commitment to learning it in front of others.'] },
+    { id:'man-search-meaning', title:'Man\'s Search for Meaning', author:'Viktor Frankl', emoji:'🕯️', bg:'linear-gradient(135deg,#1a1a1a,#0a0a0a)', rating:5, summary:'A psychiatrist\'s account of surviving the Holocaust and discovering that meaning can be found even in the most dire circumstances.', lessons:['Meaning can be found even in suffering','We cannot avoid suffering but we can choose how to cope','Freedom lies in our response to circumstances','Love is the ultimate meaning'], quotes:['When we are no longer able to change a situation, we are challenged to change ourselves.'] },
+  ];
+
+  const SNIPPETS = [
+    { id:'binary-search-code', lang:'Python', title:'Binary Search Template', tags:['algorithm','search'], code:`def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1` },
+    { id:'dp-fibonacci', lang:'Python', title:'Dynamic Programming — Fibonacci', tags:['dp','memoization'], code:`from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n-1) + fib(n-2)
+
+# Space optimized O(1)
+def fib_opt(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a` },
+    { id:'graph-bfs', lang:'Python', title:'BFS Graph Traversal', tags:['graph','bfs'], code:`from collections import deque
+
+def bfs(graph, start):
+    visited = set([start])
+    queue = deque([start])
+    order = []
+    while queue:
+        node = queue.popleft()
+        order.append(node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+    return order` },
+    { id:'two-pointers', lang:'Python', title:'Two Pointers Pattern', tags:['algorithm','array'], code:`def two_sum_sorted(arr, target):
+    left, right = 0, len(arr) - 1
+    while left < right:
+        total = arr[left] + arr[right]
+        if total == target:
+            return [left, right]
+        elif total < target:
+            left += 1
+        else:
+            right -= 1
+    return []` },
+    { id:'react-hook', lang:'JavaScript', title:'Custom React Hook — useLocalStorage', tags:['react','hooks'], code:`function useLocalStorage(key, initial) {
+  const [value, setValue] = useState(
+    () => JSON.parse(
+      localStorage.getItem(key) ?? 
+      JSON.stringify(initial)
+    )
+  );
+  const set = (v) => {
+    setValue(v);
+    localStorage.setItem(key, JSON.stringify(v));
+  };
+  return [value, set];
+}` },
+    { id:'merge-sort', lang:'Python', title:'Merge Sort — Divide and Conquer', tags:['algorithm','sorting'], code:`def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+def merge(l, r):
+    result, i, j = [], 0, 0
+    while i < len(l) and j < len(r):
+        if l[i] <= r[j]: result.append(l[i]); i += 1
+        else: result.append(r[j]); j += 1
+    return result + l[i:] + r[j:]` },
+  ];
+
+  const ARTICLES = {
+    'stoic-morning': {
+      title: 'The Stoic Morning: How Marcus Aurelius Built Unbreakable Discipline',
+      cat: 'Philosophy',
+      date: 'January 12, 2025',
+      time: '8 min read',
+      toc: ['The Emperor\'s Morning Ritual','Why Reminders Beat Motivation','The Practice of Memento Mori','Building Your Own Protocol'],
+      content: `
+        <h2 id="toc-0">The Emperor's Morning Ritual</h2>
+        <p>Every morning, Marcus Aurelius — ruler of the most powerful empire in the world — sat with a journal. Not to plan conquests or issue edicts, but to remind himself of the most basic truths he already knew.</p>
+        <p>He wrote things like: <em>"When you wake up in the morning, tell yourself: the people I deal with today will be meddling, ungrateful, arrogant, dishonest, jealous and surly."</em></p>
+        <blockquote>"The impediment to action advances action. What stands in the way becomes the way."</blockquote>
+        <p>This wasn't pessimism. It was preparation. Marcus was building a mind that could meet reality without being surprised by it.</p>
+        <h2 id="toc-1">Why Reminders Beat Motivation</h2>
+        <p>We live in a culture that chases motivation — waiting for the feeling before taking action. But Stoicism inverts this. You don't wait to feel disciplined. You act, and the feeling follows.</p>
+        <p>The Stoics understood something modern psychology is still proving: our minds are leaky. We know things and then forget them under pressure. A morning ritual is a system for plugging those leaks before the day's chaos begins.</p>
+        <h2 id="toc-2">The Practice of Memento Mori</h2>
+        <p>One of the most striking Stoic practices is <em>memento mori</em> — remember that you will die. Before you react, before you worry, before you lose yourself in trivialities, you remember: this moment is finite, and therefore precious.</p>
+        <p>Marcus used this not to be morbid, but to prioritize ruthlessly. If you could die tonight, does the petty argument you're having really matter?</p>
+        <blockquote>"You could leave life right now. Let that determine what you do and say and think."</blockquote>
+        <h2 id="toc-3">Building Your Own Protocol</h2>
+        <p>You don't need to be an emperor to adopt a Stoic morning. Here's what I do:</p>
+        <ul style="color:var(--text2);padding-left:1.5rem;line-height:2">
+          <li>Journal for 10 minutes — no agenda, just thinking on paper</li>
+          <li>Write one thing I'm grateful for</li>
+          <li>Read one page of philosophy</li>
+          <li>Set one clear intention for the day</li>
+        </ul>
+        <p>The ritual isn't magic. It's just a reliable way to show up as the person you want to be — before the world has a chance to make you otherwise.</p>
+      `
+    },
+    'binary-search': {
+      title: 'Binary Search Beyond Arrays',
+      cat: 'Coding',
+      date: 'February 3, 2025',
+      time: '5 min read',
+      toc: ['The Classic Problem','The Generalized Concept','Binary Search on Answers','Practice Problems'],
+      content: `
+        <h2 id="toc-0">The Classic Problem</h2>
+        <p>Binary search starts with a simple premise: if you have a sorted array and you want to find a target, you don't need to check every element. You can eliminate half the options with each comparison.</p>
+        <pre><code><span class="kw">def</span> <span class="fn">binary_search</span>(arr, target):
+    left, right = <span class="num">0</span>, len(arr) - <span class="num">1</span>
+    <span class="kw">while</span> left &lt;= right:
+        mid = (left + right) // <span class="num">2</span>
+        <span class="kw">if</span> arr[mid] == target:
+            <span class="kw">return</span> mid
+        <span class="kw">elif</span> arr[mid] &lt; target:
+            left = mid + <span class="num">1</span>
+        <span class="kw">else</span>:
+            right = mid - <span class="num">1</span>
+    <span class="kw">return</span> -<span class="num">1</span></code></pre>
+        <h2 id="toc-1">The Generalized Concept</h2>
+        <p>Here's the insight: binary search is not about arrays. It's about <em>any search space where you can verify a condition and eliminate half the remaining possibilities</em>.</p>
+        <p>The key template is: <code>if condition(mid): right = mid else: left = mid + 1</code>. You're bisecting based on a monotonic predicate.</p>
+        <h2 id="toc-2">Binary Search on Answers</h2>
+        <p>One of the most powerful applications is "binary search on the answer." Instead of searching for a value in an array, you search for the answer to a problem.</p>
+        <blockquote>If you can verify whether a given answer is feasible in O(n), you can find the optimal answer in O(n log n) using binary search.</blockquote>
+        <h2 id="toc-3">Practice Problems</h2>
+        <ul style="color:var(--text2);padding-left:1.5rem;line-height:2">
+          <li>LeetCode 704 — Binary Search (classic)</li>
+          <li>LeetCode 875 — Koko Eating Bananas (answer)</li>
+          <li>LeetCode 1011 — Capacity To Ship Packages (answer)</li>
+          <li>LeetCode 410 — Split Array Largest Sum (hard)</li>
+        </ul>
+      `
+    },
+    'deep-work-notes': {
+      title: 'Deep Work by Cal Newport — Key Lessons',
+      cat: 'Book Summary',
+      date: 'March 1, 2025',
+      time: '6 min read',
+      toc: ['The Core Idea','The Four Philosophies of Deep Work','Rules for Deep Work','My Takeaway'],
+      content: `
+        <h2 id="toc-0">The Core Idea</h2>
+        <p>Cal Newport argues that the ability to focus without distraction is becoming both increasingly rare and increasingly valuable. Those who cultivate this skill will thrive; those who can't will fall behind.</p>
+        <blockquote>"Deep work is the ability to focus without distraction on a cognitively demanding task. It's a skill that allows you to quickly master complicated information and produce better results in less time."</blockquote>
+        <h2 id="toc-1">The Four Philosophies of Deep Work</h2>
+        <ul style="color:var(--text2);padding-left:1.5rem;line-height:2.2">
+          <li><strong style="color:var(--text)">Monastic</strong> — Eliminate all shallow obligations. Go full monk mode.</li>
+          <li><strong style="color:var(--text)">Bimodal</strong> — Divide time into deep vs. shallow. Bill Gates style "Think Weeks".</li>
+          <li><strong style="color:var(--text)">Rhythmic</strong> — Schedule deep work at the same time every day. Most practical.</li>
+          <li><strong style="color:var(--text)">Journalistic</strong> — Fit deep work whenever you can. Hardest to do.</li>
+        </ul>
+        <h2 id="toc-2">Rules for Deep Work</h2>
+        <p>Newport gives four rules: work deeply, embrace boredom, quit social media (or at least use it intentionally), and drain the shallows. Each is practical and backed by research.</p>
+        <h2 id="toc-3">My Takeaway</h2>
+        <p>This book changed how I structure my days. I now schedule my deep work blocks in the morning, treat my phone as a tool not a toy, and measure my work in hours of deep focus rather than hours at a desk. The results have been remarkable.</p>
+        <p><strong style="color:var(--text)">Rating: ⭐⭐⭐⭐⭐</strong> — Essential reading for any student or knowledge worker.</p>
+      `
+    },
+    'why-i-code': {
+      title: 'Why I Code — A Student\'s Honest Reflection',
+      cat: 'Personal Thoughts',
+      date: 'March 15, 2025',
+      time: '4 min read',
+      toc: ['The First Terminal','When It Clicked','What Keeps Me Going','The Real Answer'],
+      content: `
+        <h2 id="toc-0">The First Terminal</h2>
+        <p>The first time I opened a terminal, I typed <code>print("Hello")</code> and felt something shift. Not excitement exactly — more like recognition. Like meeting a version of your mind you didn't know existed.</p>
+        <h2 id="toc-1">When It Clicked</h2>
+        <p>Programming didn't click immediately. For weeks I was confused. Then one afternoon, working through a recursion problem, it suddenly all made sense. The machine was just doing exactly what you told it to do. The precision was the point.</p>
+        <h2 id="toc-2">What Keeps Me Going</h2>
+        <p>It's not the job prospects. It's the feeling of building a system that works. The elegance of an algorithm that solves a problem in O(log n) instead of O(n). The moment when a 100-line program does something genuinely useful.</p>
+        <blockquote>Programming is the closest thing we have to a superpower — the ability to instruct machines to do your thinking.</blockquote>
+        <h2 id="toc-3">The Real Answer</h2>
+        <p>Why do I code? Because it teaches me to think. And thinking — clearly, precisely, systematically — is the most valuable thing a person can do. Code is just the medium.</p>
+      `
+    },
+  };
+
+  const PHIL_POSTS = [
+    { quote: 'The unexamined life is not worth living — but the over-examined life isn\'t either.', body: 'Socrates gave us the first half of this idea. The second half is mine — borrowed from experience. There\'s a version of introspection that becomes avoidance. When thinking about your life replaces living it, philosophy becomes a trap.', date: 'May 2025' },
+    { quote: 'Control the controllables. Everything else is information.', body: 'The Stoics were obsessed with the dichotomy of control. Epictetus calls it the core of philosophy: some things are in our power (our judgments, impulses, desires, aversions) and some are not (body, reputation, property). The wise person lives in the first category, and treats the second as data.', date: 'April 2025' },
+    { quote: 'You can\'t step into the same river twice — and you\'re not the same person who tried.', body: 'Heraclitus said everything flows. We live as if we can pause time — hold a relationship, a feeling, a version of ourselves in place. But impermanence isn\'t the enemy of meaning. It\'s the source of it. Things matter precisely because they don\'t last.', date: 'March 2025' },
+    { quote: 'Truth is not found; it is built — slowly, painfully, with the bricks of failed beliefs.', body: 'Epistemology is humbling. The more you study how we know what we know, the less certain you become about everything. But that\'s not nihilism — it\'s intellectual honesty. The goal isn\'t certainty. It\'s better-calibrated uncertainty.', date: 'February 2025' },
+    { quote: 'A book is a mirror. If a fool looks in, you can\'t expect a genius to look out.', body: 'Lichtenberg wrote this 300 years ago and it\'s still the best thing anyone has said about reading. Books don\'t teach us — they reflect us back to ourselves. The insights you get from a book are the insights you were ready to receive.', date: 'January 2025' },
+  ];
+
+  // ═══ ROUTING ═══
+  let currentPage = 'home';
+  function navigate(page, id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    window.scrollTo(0, 0);
+    currentPage = page;
+    if (page === 'article' && id) renderArticle(id);
+    if (page === 'book-detail' && id) renderBookDetail(id);
+    if (page === 'blog') renderBlog('all');
+    if (page === 'books') renderBooks();
+    if (page === 'coding') renderSnippets('');
+    if (page === 'philosophy') renderPhil();
+    setupReveal();
+  }
+  // Allow browser back
+  window.addEventListener('popstate', () => navigate('home'));
+
+  // ═══ RENDER FUNCTIONS ═══
+  function renderBlog(cat) {
+    const grid = document.getElementById('blog-grid');
+    const posts = cat === 'all' ? POSTS : POSTS.filter(p => p.cat === cat);
+    grid.innerHTML = posts.map(p => `
+      <div class="blog-card" onclick="navigate('article','${p.id}')">
+        <div class="blog-card-img" style="background:${p.bg}">${p.emoji}</div>
+        <div class="blog-card-body">
+          <div class="card-cat">${p.cat.toUpperCase()}</div>
+          <div class="blog-card-title">${p.title}</div>
+          <p style="font-size:0.85rem;color:var(--text2);line-height:1.55;flex:1">${p.excerpt}</p>
+          <div class="blog-card-meta"><span>${p.date}</span><span>${p.time}</span></div>
+        </div>
+      </div>`).join('');
+  }
+
+  function filterBlog(cat, btn) {
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderBlog(cat);
+  }
+
+  function renderArticle(id) {
+    const a = ARTICLES[id];
+    if (!a) { document.getElementById('article-content').innerHTML = '<p>Article not found.</p>'; return; }
+    document.getElementById('article-content').innerHTML = `
+      <div class="article-header">
+        <div class="article-cat">${a.cat}</div>
+        <h1 class="article-title">${a.title}</h1>
+        <div class="article-meta">
+          <span class="author">Vikash</span>
+          <span>·</span><span>${a.date}</span>
+          <span>·</span><span>${a.time}</span>
+        </div>
+      </div>
+      <div class="toc">
+        <div class="toc-title">Table of Contents</div>
+        <ol>${a.toc.map((t,i) => `<li><a href="#toc-${i}">${t}</a></li>`).join('')}</ol>
+      </div>
+      <div class="prose">${a.content}</div>
+      <div class="share-bar">
+        <span class="share-label">Share</span>
+        <button class="share-btn" onclick="showToast('Link copied!')">Copy Link</button>
+        <button class="share-btn" onclick="showToast('Sharing on Twitter…')">Twitter</button>
+        <button class="share-btn" onclick="showToast('Sharing on LinkedIn…')">LinkedIn</button>
+      </div>`;
+  }
+
+  function renderBooks() {
+    document.getElementById('books-grid').innerHTML = BOOKS.map(b => `
+      <div class="book-card" onclick="navigate('book-detail','${b.id}')">
+        <div class="book-cover" style="background:${b.bg}">${b.emoji}</div>
+        <div class="book-title">${b.title}</div>
+        <div class="book-author">${b.author}</div>
+        <div class="stars">${'★'.repeat(b.rating)}${'☆'.repeat(5-b.rating)}</div>
+      </div>`).join('');
+  }
+
+  function renderBookDetail(id) {
+    const b = BOOKS.find(x => x.id === id);
+    if (!b) return;
+    document.getElementById('book-detail-content').innerHTML = `
+      <div class="book-detail-header">
+        <div class="book-detail-cover" style="background:${b.bg}">${b.emoji}</div>
+        <div>
+          <div class="section-label">Book Summary</div>
+          <h1 style="font-family:var(--font-display);font-size:2rem;line-height:1.15;margin-bottom:0.5rem">${b.title}</h1>
+          <div style="color:var(--text2);margin-bottom:0.75rem">by ${b.author}</div>
+          <div class="stars" style="font-size:1.1rem;margin-bottom:1rem">${'★'.repeat(b.rating)}${'☆'.repeat(5-b.rating)}</div>
+          <p style="color:var(--text2);font-size:0.95rem;line-height:1.7">${b.summary}</p>
+        </div>
+      </div>
+      <div class="section-label" style="margin-top:2rem">Key Lessons</div>
+      <div class="key-lessons" style="margin-top:1rem">
+        ${b.lessons.map((l,i) => `<div class="lesson-item"><span class="lesson-num">0${i+1}</span><span>${l}</span></div>`).join('')}
+      </div>
+      <div class="section-label" style="margin-top:2rem">Favourite Quotes</div>
+      <div style="margin-top:1rem">
+        ${b.quotes.map(q => `<div class="quote-block">${q}</div>`).join('')}
+      </div>`;
+  }
+
+  function renderSnippets(query) {
+    const q = query.toLowerCase();
+    const data = q ? SNIPPETS.filter(s => s.title.toLowerCase().includes(q) || s.tags.some(t => t.includes(q))) : SNIPPETS;
+    document.getElementById('snippet-grid').innerHTML = data.map(s => `
+      <div class="snippet-card" onclick="copySnippet('${s.id}')">
+        <div class="snippet-header">
+          <span class="snippet-lang">${s.lang}</span>
+          <span class="snippet-title">${s.title}</span>
+        </div>
+        <pre class="snippet-pre">${s.code}</pre>
+        <div class="snippet-footer">
+          <div style="display:flex;gap:0.4rem;flex-wrap:wrap">${s.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>
+          <span style="font-size:0.75rem;color:var(--text3)">Click to copy</span>
+        </div>
+      </div>`).join('');
+  }
+
+  function filterSnippets(val) { renderSnippets(val); }
+
+  function copySnippet(id) {
+    const s = SNIPPETS.find(x => x.id === id);
+    if (s) { navigator.clipboard?.writeText(s.code); showToast('Code copied to clipboard ✓'); }
+  }
+
+  function renderPhil() {
+    document.getElementById('phil-posts').innerHTML = PHIL_POSTS.map(p => `
+      <div class="phil-post">
+        <div class="phil-quote">"${p.quote}"</div>
+        <div class="phil-body">${p.body}</div>
+        <div class="phil-date">${p.date}</div>
+      </div>`).join('');
+  }
+
+  // ═══ SEARCH ═══
+  function toggleSearch() {
+    const ov = document.getElementById('search-overlay');
+    ov.classList.toggle('open');
+    if (ov.classList.contains('open')) { document.getElementById('search-input').focus(); doSearch(''); }
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('search-overlay').classList.remove('open'); });
+
+  function doSearch(q) {
+    const results = document.getElementById('search-results');
+    const allItems = [
+      ...POSTS.map(p => ({ title:p.title, cat:p.cat, action:() => { toggleSearch(); navigate('article',p.id); }})),
+      ...BOOKS.map(b => ({ title:b.title, cat:'Book', action:() => { toggleSearch(); navigate('book-detail',b.id); }})),
+      ...SNIPPETS.map(s => ({ title:s.title, cat:'Code', action:() => { toggleSearch(); navigate('coding'); }})),
+    ];
+    const filtered = q ? allItems.filter(i => i.title.toLowerCase().includes(q.toLowerCase())) : allItems.slice(0,6);
+    if (!filtered.length) { results.innerHTML = '<div style="padding:1.5rem;text-align:center;color:var(--text3);font-size:0.9rem">No results found</div>'; return; }
+    results.innerHTML = filtered.map((item, i) => `
+      <div class="search-result-item" onclick="searchGo(${i})">
+        <div><div class="sri-cat">${item.cat}</div><div class="sri-title">${item.title}</div></div>
+      </div>`).join('');
+    window._searchItems = filtered;
+  }
+  function searchGo(i) { window._searchItems[i]?.action(); }
+
+  // ═══ THEME ═══
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    const btn = document.getElementById('theme-btn');
+    btn.innerHTML = isDark
+      ? `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`
+      : `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+  }
+
+  // ═══ MOBILE MENU ═══
+  function toggleMenu() { document.getElementById('mobile-nav').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('mobile-nav').classList.remove('open'); }
+
+  // ═══ PROGRESS BAR ═══
+  window.addEventListener('scroll', () => {
+    const docH = document.body.scrollHeight - window.innerHeight;
+    const pct = docH > 0 ? (window.scrollY / docH) * 100 : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+
+  // ═══ SCROLL REVEAL ═══
+  function setupReveal() {
+    setTimeout(() => {
+      const els = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      els.forEach(el => obs.observe(el));
+    }, 50);
+  }
+
+  // ═══ NEWSLETTER ═══
+  function subscribeNewsletter() {
+    const email = document.getElementById('nl-email').value;
+    if (email && email.includes('@')) { showToast('Subscribed! Welcome aboard 🎉'); document.getElementById('nl-email').value = ''; }
+    else showToast('Please enter a valid email');
+  }
+
+  // ═══ TOAST ═══
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ═══ INIT ═══
+  setupReveal();
+  </script>
 </body>
 </html>
