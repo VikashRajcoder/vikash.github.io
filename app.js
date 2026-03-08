@@ -15,7 +15,7 @@ const DATA = {
       cat: 'philosophy',
       catLabel: 'Philosophy',
       excerpt: 'Every morning, Marcus Aurelius reminded himself of the same truths. Not because he was afraid, but because clarity is a practice, not a destination.',
-      date: 'Jan 12, 2025',
+      date: 'Feb 12, 2026',
       time: '8 min read',
       emoji: '🌄',
       bg: 'linear-gradient(135deg,#0d0d1a 0%,#16213e 60%,#0f3460 100%)',
@@ -25,8 +25,8 @@ const DATA = {
       title: 'Binary Search Beyond Arrays',
       cat: 'coding',
       catLabel: 'Coding',
-      excerpt: 'The real power of binary search isn\'t in sorted lists — it\'s in the concept of eliminating half the solution space with every step.',
-      date: 'Feb 3, 2025',
+      excerpt: 'Coding: move with the technology!!',
+      date: 'Sep 8, 2025',
       time: '5 min read',
       emoji: '💻',
       bg: 'linear-gradient(135deg,#0f1923,#1a3a4a)',
@@ -80,8 +80,8 @@ const DATA = {
       title: 'Dynamic Programming: From Fear to Fluency',
       cat: 'coding',
       catLabel: 'Coding',
-      excerpt: 'DP isn\'t magic. It\'s a thinking pattern that emerges once you truly understand two things: subproblems and optimal substructure.',
-      date: 'May 8, 2025',
+      excerpt: 'Dive into coding competitive world, lets goo',
+      date: 'Dec 8, 2025',
       time: '12 min read',
       emoji: '⚡',
       bg: 'linear-gradient(135deg,#001a1a,#003a3a)',
@@ -91,7 +91,7 @@ const DATA = {
       title: 'Why Socrates Was Wrong (And Right) About Knowledge',
       cat: 'philosophy',
       catLabel: 'Philosophy',
-      excerpt: 'The famous "I know that I know nothing" hides a deeper truth about the nature of expertise, confidence, and intellectual humility.',
+      excerpt: 'The famous "I know only one thing that is nothing" hides a deeper truth about the nature of expertise, confidence, and intellectual humility.',
       date: 'May 22, 2025',
       time: '9 min read',
       emoji: '🏛️',
@@ -103,7 +103,7 @@ const DATA = {
     'stoic-morning': {
       title: 'The Stoic Morning: How Marcus Aurelius Built Unbreakable Discipline',
       cat: 'Philosophy',
-      date: 'January 12, 2025',
+      date: 'November 12, 2025',
       time: '8 min read',
       toc: ['The Emperor\'s Morning Ritual', 'Why Reminders Beat Motivation', 'The Practice of Memento Mori', 'Building Your Own Protocol'],
       content: `
@@ -137,7 +137,7 @@ const DATA = {
     'binary-search': {
       title: 'Binary Search Beyond Arrays',
       cat: 'Coding',
-      date: 'February 3, 2025',
+      date: 'February 3, 2026',
       time: '5 min read',
       toc: ['The Classic Problem', 'The Generalized Concept', 'Binary Search on Answers', 'Practice Problems'],
       content: `
@@ -222,7 +222,7 @@ const DATA = {
     'why-i-code': {
       title: 'Why I Code — A Student\'s Honest Reflection',
       cat: 'Personal',
-      date: 'March 15, 2025',
+      date: 'Jan 5, 2026',
       time: '4 min read',
       toc: ['The First Terminal', 'The Moment It Clicked', 'What Keeps Me Going', 'The Real Answer'],
       content: `
@@ -603,12 +603,12 @@ function useDebounce(value, delay = 300) {
     {
       quote: 'Truth is not found; it is built — slowly, with the bricks of failed beliefs.',
       body: 'Epistemology is humbling. The more you study how we know what we know, the less certain you become about everything. But that\'s not nihilism — it\'s intellectual honesty. The goal isn\'t certainty. It\'s better-calibrated uncertainty. Updating your beliefs when evidence demands it is not weakness; it is the entire point.',
-      date: 'February 2025',
+      date: 'March 2025',
     },
     {
       quote: 'A book is a mirror. If a fool looks in, you can\'t expect a genius to look out.',
       body: 'Lichtenberg wrote this three hundred years ago and it remains the best thing ever said about reading. Books don\'t teach us — they reflect what we bring to them. The insights you find in a book are the insights you were ready to receive. This is why rereading great books is so rewarding: you are a different reader each time.',
-      date: 'January 2025',
+      date: 'June 2025',
     },
   ],
 };
@@ -1232,8 +1232,8 @@ const App = (() => {
         const name = (document.getElementById('c-name') || {}).value || '';
         const email = (document.getElementById('c-email') || {}).value || '';
         const msg = (document.getElementById('c-message') || {}).value || '';
-        if (!name.trim()) { toast('Please enter your name'); return; }
-        if (!email.trim() || !email.includes('@')) { toast('Please enter a valid email'); return; }
+        if (!name.trim()) { toast('Vikash Raj'); return; }
+        if (!email.trim() || !email.includes('@')) { toast('varunraj9104@gmail.com'); return; }
         if (!msg.trim()) { toast('Please write a message'); return; }
         toast('Message sent! I\'ll get back to you soon ✓');
         ['c-name', 'c-email', 'c-subject', 'c-message'].forEach(id => {
