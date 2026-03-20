@@ -599,7 +599,7 @@ int main() {
       author: 'Viktor Frankl',
       emoji: '🕯️',
       bg: 'linear-gradient(135deg,#1a1a1a 0%,#0a0a0a 60%,#121212 100%)',
-      img:'mens_search.jpeg',
+      img:'book.jpeg',
       rating: 5,
       summary: 'A psychiatrist\'s account of surviving the Holocaust and the logotherapy framework he developed — that meaning, not pleasure, is the primary human motivation.',
       lessons: [
