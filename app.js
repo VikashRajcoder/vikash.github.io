@@ -635,6 +635,7 @@ int main() {          // main function — execution starts here
       lang: 'C',
       title: 'Print Hello World with C',
       tags: ['beginner', 'basics', 'hello-world'],
+      img: 'candcpp.jpg',
       code: `#include <stdio.h>  // standard input-output header
 
 int main() {
