@@ -514,6 +514,35 @@ const DATA = {
   ],
 
   snippets: [
+    // ── NEW: Hello World in C++ ──────────────────────────────────────────────
+    {
+      id: 'hello-world-cpp',
+      lang: 'C++',
+      title: 'Print Hello World with C++',
+      tags: ['beginner', 'basics', 'hello-world'],
+      code: `#include <iostream>  // preprocessing directive — cin (input) & cout (output)
+using namespace std; // avoids writing std:: repeatedly
+
+int main() {          // main function — execution starts here
+    cout << "Hello World!";  // print output
+    return 0;         // stop the program
+}`,
+    },
+    // ── NEW: Hello World in C ────────────────────────────────────────────────
+    {
+      id: 'hello-world-c',
+      lang: 'C',
+      title: 'Print Hello World with C',
+      tags: ['beginner', 'basics', 'hello-world'],
+      code: `#include <stdio.h>  // standard input-output header
+
+int main() {
+    printf("Hello World"); // output — scanf() is used for input
+    return 0;
+}
+// Almost all syntax is the same as C++`,
+    },
+    // ────────────────────────────────────────────────────────────────────────
     {
       id: 'binary-search-py',
       lang: 'Python',
@@ -750,15 +779,12 @@ const App = (() => {
     const nextEl = document.getElementById('page-' + page);
     if (!nextEl) return;
 
-    // Close mobile drawer if open
     closeMobileDrawer();
 
-    // Update nav active link
     document.querySelectorAll('.nav-link').forEach(a => {
       a.classList.toggle('active', a.getAttribute('data-nav') === page);
     });
 
-    // Transition
     if (currentEl && currentEl !== nextEl) {
       currentEl.classList.add('page-transition-out');
       setTimeout(() => {
@@ -773,7 +799,6 @@ const App = (() => {
     currentPage = page;
     window.scrollTo({ top: 0, behavior: 'instant' });
 
-    // Render page content
     switch (page) {
       case 'blog':
         renderBlog('all');
@@ -795,7 +820,6 @@ const App = (() => {
         break;
     }
 
-    // Re-run reveal on new page
     setTimeout(setupReveal, 100);
   }
 
@@ -819,7 +843,6 @@ const App = (() => {
     if (backdrop) {
       backdrop.addEventListener('click', closeMobileDrawer);
     }
-    // Close drawer on drawer link click
     document.querySelectorAll('.drawer-link').forEach(a => {
       a.addEventListener('click', () => setTimeout(closeMobileDrawer, 150));
     });
@@ -1067,13 +1090,11 @@ const App = (() => {
       setupReveal();
     }, 150);
 
-    // Update active filter button
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.classList.toggle('active', btn.getAttribute('data-cat') === cat);
     });
   }
 
-  // Blog filter buttons
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.filter-btn');
     if (btn) {
@@ -1089,7 +1110,6 @@ const App = (() => {
     const container = document.getElementById('article-content');
     if (!container) return;
 
-    // Set up back button
     const backBtn = document.getElementById('article-back');
     if (backBtn) {
       backBtn.onclick = () => navigate('blog');
@@ -1207,7 +1227,6 @@ const App = (() => {
       </div>
     `).join('');
 
-    // Bind copy clicks
     grid.querySelectorAll('.snippet-card').forEach(card => {
       card.addEventListener('click', () => {
         const sid = card.getAttribute('data-snippet-id');
@@ -1224,7 +1243,6 @@ const App = (() => {
       });
     });
 
-    // Code search listener
     const input = document.getElementById('code-search');
     if (input && !input._bound) {
       input.addEventListener('input', (e) => renderSnippets(e.target.value));
