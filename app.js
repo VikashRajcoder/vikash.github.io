@@ -32,6 +32,17 @@ const DATA = {
       bg: 'linear-gradient(135deg,#0f1923,#1a3a4a)',
     },
     {
+      id: 'hello-world-cpp-c',
+      title: 'Your First Program: Hello World in C++ and C',
+      cat: 'coding',
+      catLabel: 'Coding',
+      excerpt: 'Every programmer starts here. Learn the anatomy of your very first program in both C++ and C — line by line.',
+      date: 'Mar 20, 2026',
+      time: '3 min read',
+      emoji: '👋',
+      bg: 'linear-gradient(135deg,#0a1020,#1a2a4a)',
+    },
+    {
       id: 'deep-work-notes',
       title: 'Deep Work by Cal Newport — Key Lessons',
       cat: 'book-summary',
@@ -198,6 +209,51 @@ const DATA = {
           <li><strong>LeetCode 410</strong> — Split Array Largest Sum (hard)</li>
           <li><strong>Codeforces 1598C</strong> — I Love 1543 (monotonic predicate)</li>
         </ul>
+      `
+    },
+    'hello-world-cpp-c': {
+      title: 'Your First Program: Hello World in C++ and C',
+      cat: 'Coding',
+      date: 'March 20, 2026',
+      time: '3 min read',
+      toc: ['What is a Program?', 'Hello World in C++', 'Hello World in C', 'C vs C++ — Key Differences'],
+      content: `
+        <h2 id="s0">What is a Program?</h2>
+        <p>A program is a set of instructions you give to a computer. Before you build anything complex — algorithms, websites, games — you start with one simple task: make the machine say hello.</p>
+        <p>This tradition dates back decades. It's not just a ritual — it's how you verify that your environment works, your compiler is set up, and you understand the basic structure of the language.</p>
+
+        <h2 id="s1">Hello World in C++</h2>
+        <pre data-lang="C++"><code>#include &lt;iostream&gt;  // preprocessing directive — cin (input) &amp; cout (output)
+using namespace std; // avoids writing std:: repeatedly
+
+int main() {          // main function — execution starts here
+    cout &lt;&lt; "Hello World!";  // print output
+    return 0;         // stop the program
+}</code></pre>
+        <p><strong>#include &lt;iostream&gt;</strong> is a <em>preprocessor directive</em> — it tells the compiler to include the Input/Output stream library. This gives you access to <code>cin</code> (character input) and <code>cout</code> (character output).</p>
+        <p><strong>using namespace std;</strong> means you don't have to write <code>std::cout</code> every time — just <code>cout</code>. It saves repetition.</p>
+        <p><strong>int main()</strong> is the entry point — every C++ program starts executing from here.</p>
+        <p><strong>return 0;</strong> signals to the operating system that the program finished successfully.</p>
+
+        <h2 id="s2">Hello World in C</h2>
+        <pre data-lang="C"><code>#include &lt;stdio.h&gt;  // standard input-output header
+
+int main() {
+    printf("Hello World"); // output — scanf() is used for input
+    return 0;
+}</code></pre>
+        <p><strong>#include &lt;stdio.h&gt;</strong> includes the Standard Input/Output header, giving you <code>printf()</code> for output and <code>scanf()</code> for input.</p>
+        <p><strong>printf()</strong> (print formatted) sends text to the console. It's more explicit than <code>cout</code> and gives fine control over formatting.</p>
+
+        <h2 id="s3">C vs C++ — Key Differences</h2>
+        <ul>
+          <li>C uses <code>printf</code> / <code>scanf</code> — C++ uses <code>cout</code> / <code>cin</code></li>
+          <li>C++ supports <code>using namespace std;</code> — C does not have namespaces</li>
+          <li>C++ is an extension of C — almost all valid C code runs in C++</li>
+          <li>C is closer to the hardware; C++ adds object-oriented features on top</li>
+        </ul>
+        <blockquote>"Every expert was once a beginner who typed Hello World and smiled."</blockquote>
+        <p>Save this program, compile it, run it. That feeling when it works — hold onto it. That's the whole reason we code.</p>
       `
     },
     'deep-work-notes': {
