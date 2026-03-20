@@ -497,6 +497,7 @@ int main() {
       author: 'Marcus Aurelius',
       emoji: '🏛️',
       bg: 'linear-gradient(135deg,#1a1500 0%,#2e2400 60%,#1a1200 100%)',
+      img: 'meditation.jpeg',
       rating: 5,
       summary: 'A personal journal of Stoic philosophy written by the Roman Emperor. Raw, honest, and shockingly modern — a book Marcus never intended for publication.',
       lessons: [
