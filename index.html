@@ -1,378 +1,952 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logicity by Vikash</title>
-  <meta name="description" content="Exploring Coding, Philosophy, and Ideas — A personal knowledge hub by Vikash" />
-  <meta property="og:title" content="Logicity by Vikash" />
-  <meta property="og:description" content="Exploring Coding, Philosophy, and Ideas" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Logicity — Upgrade Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=DM+Mono:wght@0,400;0,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0d;--bg2:#0f0f14;--surface:#1a1a26;--surface2:#20202e;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --text:#ede8df;--text2:#9e9890;--text3:#5a5650;
+  --gold:#c8a96a;--gold2:#e2c88a;--golddim:rgba(200,169,106,0.12);
+  --blue:#7ab5cc;--green:#80b89a;--purple:#a090c0;--red:#d47070;--orange:#c8845a;
+  --r:8px;--rlg:14px;
+  --mono:'DM Mono',monospace;--display:'Cormorant Garamond',Georgia,serif;--body:'Lora',Georgia,serif;
+}
+[data-theme="light"]{
+  --bg:#f8f4ef;--bg2:#f0ebe4;--surface:#fff;--surface2:#faf7f3;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
+  --text:#1c1814;--text2:#6b6158;--text3:#aaa49a;
+  --gold:#9a6e2e;--gold2:#b8882a;--golddim:rgba(154,110,46,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.7;min-height:100vh}
+a{color:var(--gold);text-decoration:none}
+code{font-family:var(--mono);font-size:0.83em;background:var(--surface);border:1px solid var(--border);padding:0.12em 0.4em;border-radius:4px;color:var(--gold)}
+
+/* ── Layout ── */
+.page-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 5rem}
+header{padding:3.5rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:3rem}
+.eyebrow{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem}
+h1{font-family:var(--display);font-size:clamp(2.4rem,5vw,4rem);font-weight:300;letter-spacing:-0.03em;line-height:1.05;color:var(--text);margin-bottom:1rem}
+h1 em{font-style:italic;color:var(--gold)}
+.subtitle{font-size:1rem;color:var(--text2);max-width:560px;line-height:1.7}
+.theme-btn{position:fixed;top:1.2rem;right:1.5rem;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:0.45rem 1rem;font-family:var(--mono);font-size:0.72rem;color:var(--text2);cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.2s}
+.theme-btn:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ── TOC ── */
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:1.75rem 2rem;margin-bottom:3rem}
+.toc-title{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:1.25rem}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.5rem}
+.toc-link{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.75rem;border-radius:var(--r);color:var(--text2);font-size:0.88rem;transition:all 0.2s;border:1px solid transparent}
+.toc-link:hover{color:var(--gold);border-color:var(--golddim);background:var(--golddim)}
+.toc-num{font-family:var(--mono);font-size:0.65rem;color:var(--gold);min-width:22px}
+
+/* ── Section ── */
+.section{margin-bottom:4rem;scroll-margin-top:2rem}
+.section-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.section-num{font-family:var(--mono);font-size:0.68rem;color:var(--gold);letter-spacing:0.15em}
+h2{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;letter-spacing:-0.02em;color:var(--text)}
+h3{font-family:var(--display);font-size:1.25rem;font-weight:500;color:var(--text);margin-bottom:0.75rem}
+p{color:var(--text2);margin-bottom:1.1rem;font-size:0.97rem}
+ul,ol{padding-left:1.5rem;margin-bottom:1.1rem}
+li{color:var(--text2);margin-bottom:0.35rem;font-size:0.95rem}
+li strong{color:var(--text)}
+
+/* ── Cards ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin:1.5rem 0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:1.5rem;transition:border-color 0.25s,transform 0.25s}
+.card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.card-icon{font-size:1.4rem;margin-bottom:0.75rem}
+.card h4{font-family:var(--display);font-size:1.05rem;font-weight:500;color:var(--text);margin-bottom:0.4rem}
+.card p{font-size:0.85rem;margin:0}
+.card .badge{display:inline-block;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:4px;margin-top:0.75rem;background:var(--golddim);color:var(--gold);border:1px solid rgba(200,169,106,0.2)}
+
+/* ── Stack Badge ── */
+.stack-row{display:flex;flex-wrap:wrap;gap:0.6rem;margin:1rem 0 1.5rem}
+.stack-badge{font-family:var(--mono);font-size:0.72rem;padding:0.35rem 0.85rem;border-radius:50px;border:1px solid var(--border2);color:var(--text2);letter-spacing:0.08em}
+.stack-badge.rec{border-color:var(--gold);color:var(--gold);background:var(--golddim)}
+.stack-badge.blue{border-color:var(--blue);color:var(--blue);background:rgba(122,181,204,0.10)}
+.stack-badge.green{border-color:var(--green);color:var(--green);background:rgba(128,184,154,0.10)}
+.stack-badge.purple{border-color:var(--purple);color:var(--purple);background:rgba(160,144,192,0.10)}
+
+/* ── Code Blocks ── */
+.code-wrap{position:relative;margin:1.5rem 0}
+.code-lang{position:absolute;top:0.75rem;right:1rem;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3)}
+pre{background:#0a0a12;border:1px solid var(--border);border-radius:var(--rlg);padding:1.5rem;overflow-x:auto;font-family:var(--mono);font-size:0.8rem;line-height:1.75;color:#c8c0b4}
+[data-theme="light"] pre{background:#f0ece5;color:#3a3530}
+.kw{color:#a090c0}.fn{color:#7ab5cc}.str{color:#80b89a}.cm{color:#5a5650;font-style:italic}.num{color:#d47070}.dec{color:#c8845a}.prop{color:#c8a96a}
+.copy-btn{position:absolute;top:0.6rem;right:3.5rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.65rem;border-radius:4px;border:1px solid var(--border2);color:var(--text3);background:var(--surface);cursor:pointer;transition:all 0.2s}
+.copy-btn:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ── Arch Diagram ── */
+.arch-diagram{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:2rem;margin:1.5rem 0;overflow-x:auto}
+.arch-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap}
+.arch-box{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1.1rem;border-radius:var(--r);font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;border:1px solid;flex-shrink:0}
+.arch-box.client{border-color:var(--blue);color:var(--blue);background:rgba(122,181,204,0.10)}
+.arch-box.server{border-color:var(--green);color:var(--green);background:rgba(128,184,154,0.10)}
+.arch-box.db{border-color:var(--purple);color:var(--purple);background:rgba(160,144,192,0.10)}
+.arch-box.cdn{border-color:var(--gold);color:var(--gold);background:var(--golddim)}
+.arch-box.ext{border-color:var(--orange);color:var(--orange);background:rgba(200,132,90,0.10)}
+.arch-arrow{color:var(--text3);font-size:1.1rem;flex-shrink:0}
+.arch-label{font-family:var(--mono);font-size:0.6rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;min-width:80px}
+.arch-sep{width:100%;height:1px;background:var(--border);margin:1.25rem 0}
+.arch-legend{display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border)}
+.leg{display:flex;align-items:center;gap:0.4rem;font-family:var(--mono);font-size:0.62rem;color:var(--text3);letter-spacing:0.08em}
+.leg-dot{width:8px;height:8px;border-radius:50%}
+
+/* ── Step List ── */
+.step-list{counter-reset:steps;margin:1.5rem 0}
+.step{counter-increment:steps;display:grid;grid-template-columns:40px 1fr;gap:1rem;padding:1.25rem 0;border-bottom:1px solid var(--border);align-items:start}
+.step:first-child{border-top:1px solid var(--border)}
+.step-num{font-family:var(--mono);font-size:0.75rem;color:var(--gold);background:var(--golddim);border:1px solid rgba(200,169,106,0.2);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step h4{font-family:var(--display);font-size:1.05rem;font-weight:500;color:var(--text);margin-bottom:0.3rem}
+.step p{font-size:0.88rem;margin:0}
+.step .time{font-family:var(--mono);font-size:0.62rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.4rem;display:block}
+
+/* ── Feature Table ── */
+.feat-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.feat-table th{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);padding:0.6rem 1rem;border-bottom:1px solid var(--border2);text-align:left}
+.feat-table td{padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.feat-table td:first-child{color:var(--text);font-weight:500}
+.feat-table tr:hover td{background:var(--surface)}
+.check{color:var(--green)}.cross{color:var(--text3)}
+
+/* ── Info Box ── */
+.info-box{background:var(--golddim);border:1px solid rgba(200,169,106,0.25);border-radius:var(--r);padding:1.1rem 1.4rem;margin:1.5rem 0;font-size:0.9rem;color:var(--text2)}
+.info-box strong{color:var(--gold)}
+.warn-box{background:rgba(212,112,112,0.10);border:1px solid rgba(212,112,112,0.25);border-radius:var(--r);padding:1.1rem 1.4rem;margin:1.5rem 0;font-size:0.9rem;color:var(--text2)}
+.warn-box strong{color:var(--red)}
+
+/* ── Roadmap ── */
+.roadmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin:1.5rem 0}
+.phase{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:1.5rem;position:relative;overflow:hidden}
+.phase::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.phase.p1::before{background:var(--green)}
+.phase.p2::before{background:var(--blue)}
+.phase.p3::before{background:var(--purple)}
+.phase.p4::before{background:var(--gold)}
+.phase-num{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);margin-bottom:0.5rem}
+.phase h4{font-family:var(--display);font-size:1.05rem;font-weight:500;color:var(--text);margin-bottom:0.75rem}
+.phase ul{padding-left:1.25rem;margin:0}
+.phase li{font-size:0.83rem}
+
+/* ── Tabs ── */
+.tabs{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.tab{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.45rem 1rem;border-radius:50px;border:1px solid var(--border);color:var(--text2);background:transparent;cursor:pointer;transition:all 0.2s}
+.tab:hover{border-color:var(--gold);color:var(--gold)}
+.tab.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* ── Responsive ── */
+@media(max-width:600px){
+  .card-grid,.roadmap{grid-template-columns:1fr}
+  .arch-row{flex-direction:column;align-items:flex-start}
+  .arch-arrow{transform:rotate(90deg)}
+}
+</style>
 </head>
 <body>
+<button class="theme-btn" onclick="toggleTheme()">☀ / ☾</button>
+<div class="page-wrap">
 
-  <div id="cursor-outer"></div>
-  <div id="cursor-inner"></div>
-  <div id="reading-bar"><div id="reading-fill"></div></div>
-  <div id="noise-overlay"></div>
-  <div id="ambient-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+<!-- HEADER -->
+<header>
+  <p class="eyebrow">Logicity by Vikash · Upgrade Blueprint</p>
+  <h1>From Blog to <em>Platform</em></h1>
+  <p class="subtitle">A complete architecture guide — frontend, backend, database, analytics, and everything in between. Built for a solo developer, scalable for the future.</p>
+</header>
+
+<!-- TOC -->
+<nav class="toc">
+  <p class="toc-title">Table of Contents</p>
+  <div class="toc-grid">
+    <a class="toc-link" href="#architecture"><span class="toc-num">01</span>Full Architecture</a>
+    <a class="toc-link" href="#techstack"><span class="toc-num">02</span>Technology Stack</a>
+    <a class="toc-link" href="#editor"><span class="toc-num">03</span>Rich Text Editor</a>
+    <a class="toc-link" href="#interactivity"><span class="toc-num">04</span>Likes, Comments & Subscribe</a>
+    <a class="toc-link" href="#analytics"><span class="toc-num">05</span>Analytics Dashboard</a>
+    <a class="toc-link" href="#auth"><span class="toc-num">06</span>Auth & Admin</a>
+    <a class="toc-link" href="#seo"><span class="toc-num">07</span>SEO & Performance</a>
+    <a class="toc-link" href="#database"><span class="toc-num">08</span>Database Schema</a>
+    <a class="toc-link" href="#roadmap"><span class="toc-num">09</span>Implementation Roadmap</a>
+    <a class="toc-link" href="#hosting"><span class="toc-num">10</span>Hosting & Deployment</a>
+  </div>
+</nav>
+
+<!-- 01 ARCHITECTURE -->
+<section class="section" id="architecture">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <h2>Full Architecture Overview</h2>
+  </div>
+  <p>Your blog will be split into three clear layers: the <strong>frontend</strong> (what visitors see), the <strong>backend API</strong> (business logic), and the <strong>database</strong> (storage). They communicate over HTTPS/REST or GraphQL.</p>
+
+  <div class="arch-diagram">
+    <p style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:1.25rem">System Architecture</p>
+
+    <div class="arch-row">
+      <span class="arch-label">Visitor</span>
+      <div class="arch-box client">🌐 Browser / Mobile</div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-box cdn">⚡ CDN (Cloudflare)</div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-box client">⚛ React Frontend (Vite)</div>
+    </div>
+    <div class="arch-sep"></div>
+    <div class="arch-row">
+      <span class="arch-label">API Layer</span>
+      <div class="arch-box server">🟢 Node.js + Express</div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-box server">🔒 Auth Middleware (JWT)</div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-box server">📦 REST API Routes</div>
+    </div>
+    <div class="arch-sep"></div>
+    <div class="arch-row">
+      <span class="arch-label">Storage</span>
+      <div class="arch-box db">🗄 PostgreSQL (Posts, Users, Comments)</div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-box db">⚡ Redis (Sessions, Cache)</div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-box ext">☁ Cloudinary (Images)</div>
+    </div>
+    <div class="arch-sep"></div>
+    <div class="arch-row">
+      <span class="arch-label">Services</span>
+      <div class="arch-box ext">📊 Analytics (Plausible / Custom)</div>
+      <span class="arch-arrow">·</span>
+      <div class="arch-box ext">📧 Email (Resend / SendGrid)</div>
+      <span class="arch-arrow">·</span>
+      <div class="arch-box ext">🔍 Search (Meilisearch)</div>
+    </div>
+
+    <div class="arch-legend">
+      <span class="leg"><span class="leg-dot" style="background:var(--blue)"></span> Frontend</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--green)"></span> Backend</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--purple)"></span> Database</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--gold)"></span> CDN / Infra</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--orange)"></span> External Services</span>
+    </div>
   </div>
 
-  <!-- NAVIGATION -->
-  <nav id="main-nav">
-    <div class="nav-inner">
-      <a class="nav-logo" data-nav="home">
-        <span class="logo-main">Logicity</span>
-        <span class="logo-by">by Vikash</span>
-      </a>
-      <ul class="nav-links" id="nav-links">
-        <li><a data-nav="blog" class="nav-link">Writing</a></li>
-        <li><a data-nav="books" class="nav-link">Books</a></li>
-        <li><a data-nav="coding" class="nav-link">Code</a></li>
-        <li><a data-nav="philosophy" class="nav-link">Philosophy</a></li>
-        <li><a data-nav="about" class="nav-link">About</a></li>
-        <li><a data-nav="contact" class="nav-link">Contact</a></li>
+  <div class="info-box"><strong>Why this stack?</strong> It keeps costs near-zero while you grow. PostgreSQL is free on Supabase, Redis is free on Upstash, Cloudinary free tier covers 25GB. You can migrate any layer independently later.</div>
+</section>
+
+<!-- 02 TECH STACK -->
+<section class="section" id="techstack">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <h2>Recommended Technology Stack</h2>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab(this,'frontend-tab')">Frontend</button>
+    <button class="tab" onclick="showTab(this,'backend-tab')">Backend</button>
+    <button class="tab" onclick="showTab(this,'db-tab')">Database</button>
+    <button class="tab" onclick="showTab(this,'services-tab')">Services</button>
+  </div>
+
+  <div id="frontend-tab" class="tab-panel active">
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">⚛</div><h4>React + Vite</h4><p>Fast build tool, component reuse, easy state management. Upgrade from your current vanilla JS.</p><span class="badge">Recommended</span></div>
+      <div class="card"><div class="card-icon">🎨</div><h4>TailwindCSS</h4><p>Utility-first CSS. Works alongside your existing style system. Zero unused styles in production.</p><span class="badge">Recommended</span></div>
+      <div class="card"><div class="card-icon">📝</div><h4>Tiptap Editor</h4><p>Best-in-class rich text editor. Headings, bold, italic, images, code blocks — all built in.</p><span class="badge">For Writing</span></div>
+      <div class="card"><div class="card-icon">🧭</div><h4>React Router v6</h4><p>File-based routing, lazy loading, nested layouts. Clean URL structure out of the box.</p></div>
+      <div class="card"><div class="card-icon">🔄</div><h4>TanStack Query</h4><p>Data fetching, caching, background sync. Replaces manual <code>fetch</code> calls with smart hooks.</p></div>
+      <div class="card"><div class="card-icon">📱</div><h4>Zustand</h4><p>Tiny global state for auth user, theme, notifications. Simpler than Redux.</p></div>
+    </div>
+  </div>
+
+  <div id="backend-tab" class="tab-panel">
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">🟢</div><h4>Node.js + Express</h4><p>You can write JavaScript on both sides. Large ecosystem, easy to learn, fast enough for a blog.</p><span class="badge">Recommended</span></div>
+      <div class="card"><div class="card-icon">🔒</div><h4>JWT + bcrypt</h4><p>Stateless auth tokens. bcrypt for password hashing. Simple, well-understood, secure.</p></div>
+      <div class="card"><div class="card-icon">📐</div><h4>Zod</h4><p>Schema validation for all API inputs. Prevents bad data from reaching your database.</p></div>
+      <div class="card"><div class="card-icon">🚦</div><h4>Express Rate Limit</h4><p>Throttle comment/like spam. Free, drop-in middleware. Keeps your API safe.</p></div>
+      <div class="card"><div class="card-icon">🐘</div><h4>Prisma ORM</h4><p>Type-safe database queries. Auto-generates TypeScript types from your schema. Migrations built in.</p><span class="badge">Recommended</span></div>
+      <div class="card"><div class="card-icon">🧪</div><h4>Alternative: Django</h4><p>If you prefer Python. Django REST Framework is excellent. More batteries-included but steeper curve.</p></div>
+    </div>
+    <div class="warn-box"><strong>Skip Firebase</strong> for now — it locks you into a proprietary ecosystem. With Supabase you get a real PostgreSQL database with a Firebase-like feel, but you own your data.</div>
+  </div>
+
+  <div id="db-tab" class="tab-panel">
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">🐘</div><h4>PostgreSQL</h4><p>Primary database. Handles posts, users, comments, likes, subscriptions, analytics. Supabase gives you hosted PostgreSQL free.</p><span class="badge">Recommended</span></div>
+      <div class="card"><div class="card-icon">⚡</div><h4>Redis (Upstash)</h4><p>Session storage, view count caching, rate limiting. Free tier on Upstash — no server to manage.</p></div>
+      <div class="card"><div class="card-icon">☁</div><h4>Cloudinary</h4><p>Image hosting, auto-resize, WebP conversion, CDN delivery. Free for 25GB. Drop-in for blog images.</p></div>
+      <div class="card"><div class="card-icon">🔍</div><h4>Meilisearch</h4><p>Fast full-text search for posts. Much better than PostgreSQL <code>LIKE</code> queries. Self-host or use their cloud.</p></div>
+    </div>
+  </div>
+
+  <div id="services-tab" class="tab-panel">
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">📧</div><h4>Resend</h4><p>Send subscription confirmation and notification emails. Free for 3,000 emails/month. Modern API, excellent deliverability.</p></div>
+      <div class="card"><div class="card-icon">📊</div><h4>Plausible Analytics</h4><p>Privacy-friendly, GDPR compliant visitor tracking. Lightweight script (< 1KB). OR build your own — code below.</p></div>
+      <div class="card"><div class="card-icon">🌐</div><h4>Cloudflare (Free)</h4><p>CDN + DDoS protection + automatic HTTPS. Point your domain, enable proxy — done.</p></div>
+      <div class="card"><div class="card-icon">🚀</div><h4>Vercel / Railway</h4><p>Vercel for frontend (free), Railway for Node.js backend ($5/mo or free tier). Both have GitHub auto-deploy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 EDITOR -->
+<section class="section" id="editor">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <h2>Built-in Rich Text Editor</h2>
+  </div>
+  <p>Use <strong>Tiptap</strong> — it is the best open-source rich text editor for React. It supports headings, bold, italic, bullet lists, ordered lists, blockquotes, code blocks, image embedding, and auto-save. Here is how to set it up:</p>
+
+  <div class="stack-row">
+    <span class="stack-badge rec">npm install @tiptap/react @tiptap/pm @tiptap/starter-kit</span>
+    <span class="stack-badge blue">npm install @tiptap/extension-image @tiptap/extension-placeholder</span>
+  </div>
+
+  <h3>Editor Component</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">jsx</span>
+<pre><span class="cm">// components/BlogEditor.jsx</span>
+<span class="kw">import</span> { useEditor, EditorContent } <span class="kw">from</span> <span class="str">'@tiptap/react'</span>
+<span class="kw">import</span> StarterKit <span class="kw">from</span> <span class="str">'@tiptap/starter-kit'</span>
+<span class="kw">import</span> Image <span class="kw">from</span> <span class="str">'@tiptap/extension-image'</span>
+<span class="kw">import</span> Placeholder <span class="kw">from</span> <span class="str">'@tiptap/extension-placeholder'</span>
+<span class="kw">import</span> { <span class="fn">useEffect</span>, <span class="fn">useCallback</span> } <span class="kw">from</span> <span class="str">'react'</span>
+
+<span class="kw">export default function</span> <span class="fn">BlogEditor</span>({ value, onChange, onSave }) {
+  <span class="kw">const</span> editor = <span class="fn">useEditor</span>({
+    extensions: [
+      StarterKit,
+      Image.<span class="fn">configure</span>({ inline: <span class="kw">false</span>, allowBase64: <span class="kw">true</span> }),
+      Placeholder.<span class="fn">configure</span>({ placeholder: <span class="str">'Start writing your story…'</span> }),
+    ],
+    content: value,
+    onUpdate: ({ editor }) => <span class="fn">onChange</span>(editor.<span class="fn">getHTML</span>()),
+  })
+
+  <span class="cm">// Auto-save every 30 seconds</span>
+  <span class="fn">useEffect</span>(() => {
+    <span class="kw">const</span> timer = <span class="fn">setInterval</span>(() => {
+      <span class="kw">if</span> (editor) <span class="fn">onSave</span>(editor.<span class="fn">getHTML</span>())
+    }, <span class="num">30000</span>)
+    <span class="kw">return</span> () => <span class="fn">clearInterval</span>(timer)
+  }, [editor, onSave])
+
+  <span class="kw">const</span> <span class="fn">addImage</span> = <span class="fn">useCallback</span>(() => {
+    <span class="kw">const</span> url = <span class="fn">window.prompt</span>(<span class="str">'Image URL:'</span>)
+    <span class="kw">if</span> (url) editor.chain().<span class="fn">focus</span>().<span class="fn">setImage</span>({ src: url }).<span class="fn">run</span>()
+  }, [editor])
+
+  <span class="kw">if</span> (!editor) <span class="kw">return</span> <span class="kw">null</span>
+
+  <span class="kw">return</span> (
+    &lt;<span class="dec">div</span> className=<span class="str">"editor-wrap"</span>&gt;
+      &lt;<span class="dec">div</span> className=<span class="str">"toolbar"</span>&gt;
+        &lt;<span class="dec">button</span> onClick={() =&gt; editor.chain().<span class="fn">focus</span>().<span class="fn">toggleBold</span>().<span class="fn">run</span>()}&gt;<span class="str">B</span>&lt;/<span class="dec">button</span>&gt;
+        &lt;<span class="dec">button</span> onClick={() =&gt; editor.chain().<span class="fn">focus</span>().<span class="fn">toggleItalic</span>().<span class="fn">run</span>()}&gt;<span class="str">I</span>&lt;/<span class="dec">button</span>&gt;
+        &lt;<span class="dec">button</span> onClick={() =&gt; editor.chain().<span class="fn">focus</span>().<span class="fn">toggleHeading</span>({ level: <span class="num">2</span> }).<span class="fn">run</span>()}&gt;<span class="str">H2</span>&lt;/<span class="dec">button</span>&gt;
+        &lt;<span class="dec">button</span> onClick={() =&gt; editor.chain().<span class="fn">focus</span>().<span class="fn">toggleBulletList</span>().<span class="fn">run</span>()}&gt;<span class="str">• List</span>&lt;/<span class="dec">button</span>&gt;
+        &lt;<span class="dec">button</span> onClick={() =&gt; editor.chain().<span class="fn">focus</span>().<span class="fn">toggleBlockquote</span>().<span class="fn">run</span>()}&gt;<span class="str">Quote</span>&lt;/<span class="dec">button</span>&gt;
+        &lt;<span class="dec">button</span> onClick={<span class="fn">addImage</span>}&gt;<span class="str">📷 Image</span>&lt;/<span class="dec">button</span>&gt;
+        &lt;<span class="dec">button</span> onClick={() =&gt; <span class="fn">onSave</span>(editor.<span class="fn">getHTML</span>())}&gt;<span class="str">💾 Save</span>&lt;/<span class="dec">button</span>&gt;
+      &lt;/<span class="dec">div</span>&gt;
+      &lt;<span class="dec">EditorContent</span> editor={editor} className=<span class="str">"prose-editor"</span> /&gt;
+    &lt;/<span class="dec">div</span>&gt;
+  )
+}</pre>
+  </div>
+
+  <h3>Image Upload to Cloudinary</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">js</span>
+<pre><span class="cm">// utils/uploadImage.js — Upload from file input, get back a URL</span>
+<span class="kw">export async function</span> <span class="fn">uploadImage</span>(file) {
+  <span class="kw">const</span> formData = <span class="kw">new</span> <span class="fn">FormData</span>()
+  formData.<span class="fn">append</span>(<span class="str">'file'</span>, file)
+  formData.<span class="fn">append</span>(<span class="str">'upload_preset'</span>, <span class="str">'logicity_blog'</span>) <span class="cm">// set in Cloudinary dashboard</span>
+
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(
+    <span class="str">`https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload`</span>,
+    { method: <span class="str">'POST'</span>, body: formData }
+  )
+  <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>()
+  <span class="kw">return</span> data.secure_url <span class="cm">// e.g. https://res.cloudinary.com/.../image.webp</span>
+}</pre>
+  </div>
+</section>
+
+<!-- 04 INTERACTIVITY -->
+<section class="section" id="interactivity">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <h2>Likes, Comments & Subscribe</h2>
+  </div>
+
+  <h3>Like Button API (Backend)</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">js</span>
+<pre><span class="cm">// routes/likes.js (Express)</span>
+<span class="kw">const</span> { PrismaClient } = <span class="fn">require</span>(<span class="str">'@prisma/client'</span>)
+<span class="kw">const</span> prisma = <span class="kw">new</span> <span class="fn">PrismaClient</span>()
+
+<span class="cm">// POST /api/posts/:id/like  — toggle like (uses IP or user ID)</span>
+router.<span class="fn">post</span>(<span class="str">'/:id/like'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> postId = req.params.id
+  <span class="kw">const</span> userId = req.user?.id ?? req.ip <span class="cm">// works for logged-out users too</span>
+
+  <span class="kw">const</span> existing = <span class="kw">await</span> prisma.like.<span class="fn">findFirst</span>({
+    where: { postId, userId }
+  })
+
+  <span class="kw">if</span> (existing) {
+    <span class="kw">await</span> prisma.like.<span class="fn">delete</span>({ where: { id: existing.id } })
+    <span class="kw">return</span> res.<span class="fn">json</span>({ liked: <span class="kw">false</span> })
+  }
+
+  <span class="kw">await</span> prisma.like.<span class="fn">create</span>({ data: { postId, userId } })
+  res.<span class="fn">json</span>({ liked: <span class="kw">true</span> })
+})
+
+<span class="cm">// GET /api/posts/:id/likes  — return count</span>
+router.<span class="fn">get</span>(<span class="str">'/:id/likes'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> count = <span class="kw">await</span> prisma.like.<span class="fn">count</span>({
+    where: { postId: req.params.id }
+  })
+  res.<span class="fn">json</span>({ count })
+})</pre>
+  </div>
+
+  <h3>Comment System</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">js</span>
+<pre><span class="cm">// routes/comments.js — nested reply support</span>
+router.<span class="fn">get</span>(<span class="str">'/:postId/comments'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> comments = <span class="kw">await</span> prisma.comment.<span class="fn">findMany</span>({
+    where: { postId: req.params.postId, parentId: <span class="kw">null</span> }, <span class="cm">// top-level only</span>
+    include: {
+      author: { select: { name: <span class="kw">true</span>, avatarUrl: <span class="kw">true</span> } },
+      replies: {
+        include: { author: { select: { name: <span class="kw">true</span>, avatarUrl: <span class="kw">true</span> } } },
+        orderBy: { createdAt: <span class="str">'asc'</span> }
+      }
+    },
+    orderBy: { createdAt: <span class="str">'desc'</span> }
+  })
+  res.<span class="fn">json</span>(comments)
+})
+
+router.<span class="fn">post</span>(<span class="str">'/:postId/comments'</span>, requireAuth, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> { body, parentId } = req.body <span class="cm">// parentId = reply to a comment</span>
+  <span class="kw">const</span> comment = <span class="kw">await</span> prisma.comment.<span class="fn">create</span>({
+    data: {
+      body,
+      parentId: parentId ?? <span class="kw">null</span>,
+      postId: req.params.postId,
+      authorId: req.user.id
+    }
+  })
+  res.<span class="fn">json</span>(comment)
+})</pre>
+  </div>
+
+  <h3>Newsletter Subscribe</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">js</span>
+<pre><span class="cm">// routes/subscribe.js — with double opt-in email</span>
+<span class="kw">const</span> { Resend } = <span class="fn">require</span>(<span class="str">'resend'</span>)
+<span class="kw">const</span> resend = <span class="kw">new</span> <span class="fn">Resend</span>(process.env.RESEND_API_KEY)
+<span class="kw">const</span> crypto = <span class="fn">require</span>(<span class="str">'crypto'</span>)
+
+router.<span class="fn">post</span>(<span class="str">'/subscribe'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> { email } = req.body
+  <span class="kw">const</span> token = crypto.<span class="fn">randomBytes</span>(<span class="num">32</span>).<span class="fn">toString</span>(<span class="str">'hex'</span>)
+
+  <span class="kw">await</span> prisma.subscriber.<span class="fn">upsert</span>({
+    where: { email },
+    create: { email, token, confirmed: <span class="kw">false</span> },
+    update: { token }
+  })
+
+  <span class="kw">await</span> resend.emails.<span class="fn">send</span>({
+    from: <span class="str">'Vikash &lt;hello@logicity.com&gt;'</span>,
+    to: email,
+    subject: <span class="str">'Confirm your subscription to Logicity'</span>,
+    html: <span class="str">`&lt;p&gt;Click to confirm: &lt;a href="${process.env.BASE_URL}/confirm?token=${token}"&gt;Confirm&lt;/a&gt;&lt;/p&gt;`</span>
+  })
+
+  res.<span class="fn">json</span>({ message: <span class="str">'Check your inbox!'</span> })
+})
+
+<span class="cm">// GET /confirm?token=xxx</span>
+router.<span class="fn">get</span>(<span class="str">'/confirm'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">await</span> prisma.subscriber.<span class="fn">update</span>({
+    where: { token: req.query.token },
+    data: { confirmed: <span class="kw">true</span> }
+  })
+  res.<span class="fn">redirect</span>(<span class="str">'/?subscribed=true'</span>)
+})</pre>
+  </div>
+</section>
+
+<!-- 05 ANALYTICS -->
+<section class="section" id="analytics">
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <h2>Analytics — Views, Time on Page, Dashboard</h2>
+  </div>
+  <p>You can build your own lightweight analytics in about 50 lines. Track views and time-on-page, store in PostgreSQL, show in an admin dashboard.</p>
+
+  <h3>Frontend Tracker (add to every blog post page)</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">js</span>
+<pre><span class="cm">// hooks/useAnalytics.js</span>
+<span class="kw">import</span> { <span class="fn">useEffect</span>, <span class="fn">useRef</span> } <span class="kw">from</span> <span class="str">'react'</span>
+
+<span class="kw">export function</span> <span class="fn">useAnalytics</span>(postId) {
+  <span class="kw">const</span> startTime = <span class="fn">useRef</span>(Date.<span class="fn">now</span>())
+
+  <span class="fn">useEffect</span>(() => {
+    <span class="kw">if</span> (!postId) <span class="kw">return</span>
+
+    <span class="cm">// Record a page view</span>
+    <span class="fn">fetch</span>(<span class="str">`/api/analytics/view`</span>, {
+      method: <span class="str">'POST'</span>,
+      headers: { <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span> },
+      body: <span class="fn">JSON.stringify</span>({
+        postId,
+        referrer: document.referrer,
+        userAgent: navigator.userAgent,
+        path: window.location.pathname
+      })
+    })
+
+    <span class="cm">// Record time-on-page when user leaves</span>
+    <span class="kw">const</span> <span class="fn">handleLeave</span> = () => {
+      <span class="kw">const</span> seconds = <span class="fn">Math.round</span>((Date.<span class="fn">now</span>() - startTime.current) / <span class="num">1000</span>)
+      <span class="cm">// Use sendBeacon — works even as the tab closes</span>
+      navigator.sendBeacon(<span class="str">'/api/analytics/time'</span>,
+        <span class="fn">JSON.stringify</span>({ postId, seconds })
+      )
+    }
+
+    window.<span class="fn">addEventListener</span>(<span class="str">'beforeunload'</span>, handleLeave)
+    document.<span class="fn">addEventListener</span>(<span class="str">'visibilitychange'</span>, () => {
+      <span class="kw">if</span> (document.hidden) <span class="fn">handleLeave</span>()
+    })
+
+    <span class="kw">return</span> () => window.<span class="fn">removeEventListener</span>(<span class="str">'beforeunload'</span>, handleLeave)
+  }, [postId])
+}
+
+<span class="cm">// Usage in your PostPage component:</span>
+<span class="cm">// useAnalytics(post.id)</span></pre>
+  </div>
+
+  <h3>Backend Analytics Route</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">js</span>
+<pre><span class="cm">// routes/analytics.js</span>
+router.<span class="fn">post</span>(<span class="str">'/view'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> { postId, referrer, path } = req.body
+  <span class="kw">await</span> prisma.pageView.<span class="fn">create</span>({
+    data: { postId, referrer, path, ip: req.ip, date: <span class="kw">new</span> <span class="fn">Date</span>() }
+  })
+  res.<span class="fn">json</span>({ ok: <span class="kw">true</span> })
+})
+
+router.<span class="fn">post</span>(<span class="str">'/time'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> { postId, seconds } = <span class="fn">JSON.parse</span>(req.body)
+  <span class="kw">await</span> prisma.post.<span class="fn">update</span>({
+    where: { id: postId },
+    data: { totalReadSeconds: { increment: seconds } }
+  })
+  res.<span class="fn">json</span>({ ok: <span class="kw">true</span> })
+})
+
+<span class="cm">// GET /api/analytics/dashboard — for admin only</span>
+router.<span class="fn">get</span>(<span class="str">'/dashboard'</span>, requireAdmin, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> [totalViews, totalLikes, totalComments, topPosts] = <span class="kw">await</span> prisma.<span class="fn">$transaction</span>([
+    prisma.pageView.<span class="fn">count</span>(),
+    prisma.like.<span class="fn">count</span>(),
+    prisma.comment.<span class="fn">count</span>(),
+    prisma.$queryRaw<span class="str">`
+      SELECT p.id, p.title,
+        COUNT(DISTINCT v.id) AS views,
+        COUNT(DISTINCT l.id) AS likes,
+        ROUND(p."totalReadSeconds" / 60.0, 1) AS avg_read_min
+      FROM "Post" p
+      LEFT JOIN "PageView" v ON v."postId" = p.id
+      LEFT JOIN "Like" l ON l."postId" = p.id
+      GROUP BY p.id ORDER BY views DESC LIMIT 10
+    `</span>
+  ])
+  res.<span class="fn">json</span>({ totalViews, totalLikes, totalComments, topPosts })
+})</pre>
+  </div>
+</section>
+
+<!-- 06 AUTH -->
+<section class="section" id="auth">
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <h2>Auth System & Admin Dashboard</h2>
+  </div>
+
+  <h3>JWT Middleware</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">js</span>
+<pre><span class="cm">// middleware/auth.js</span>
+<span class="kw">const</span> jwt = <span class="fn">require</span>(<span class="str">'jsonwebtoken'</span>)
+
+<span class="kw">const</span> <span class="fn">requireAuth</span> = (req, res, next) => {
+  <span class="kw">const</span> token = req.cookies?.token ?? req.headers.authorization?.split(<span class="str">' '</span>)[<span class="num">1</span>]
+  <span class="kw">if</span> (!token) <span class="kw">return</span> res.<span class="fn">status</span>(<span class="num">401</span>).<span class="fn">json</span>({ error: <span class="str">'Unauthorized'</span> })
+
+  <span class="kw">try</span> {
+    req.user = jwt.<span class="fn">verify</span>(token, process.env.JWT_SECRET)
+    <span class="fn">next</span>()
+  } <span class="kw">catch</span> {
+    res.<span class="fn">status</span>(<span class="num">401</span>).<span class="fn">json</span>({ error: <span class="str">'Invalid token'</span> })
+  }
+}
+
+<span class="kw">const</span> <span class="fn">requireAdmin</span> = (req, res, next) => {
+  <span class="fn">requireAuth</span>(req, res, () => {
+    <span class="kw">if</span> (req.user.role !== <span class="str">'admin'</span>)
+      <span class="kw">return</span> res.<span class="fn">status</span>(<span class="num">403</span>).<span class="fn">json</span>({ error: <span class="str">'Forbidden'</span> })
+    <span class="fn">next</span>()
+  })
+}
+
+module.exports = { requireAuth, requireAdmin }</pre>
+  </div>
+
+  <h3>Register & Login</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">js</span>
+<pre><span class="cm">// routes/auth.js</span>
+<span class="kw">const</span> bcrypt = <span class="fn">require</span>(<span class="str">'bcrypt'</span>)
+<span class="kw">const</span> jwt = <span class="fn">require</span>(<span class="str">'jsonwebtoken'</span>)
+
+router.<span class="fn">post</span>(<span class="str">'/register'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> { name, email, password } = req.body
+  <span class="kw">const</span> hash = <span class="kw">await</span> bcrypt.<span class="fn">hash</span>(password, <span class="num">12</span>)
+  <span class="kw">const</span> user = <span class="kw">await</span> prisma.user.<span class="fn">create</span>({
+    data: { name, email, password: hash, role: <span class="str">'user'</span> }
+  })
+  <span class="kw">const</span> token = jwt.<span class="fn">sign</span>({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: <span class="str">'7d'</span> })
+  res.<span class="fn">cookie</span>(<span class="str">'token'</span>, token, { httpOnly: <span class="kw">true</span>, secure: <span class="kw">true</span>, sameSite: <span class="str">'strict'</span>, maxAge: <span class="num">604800000</span> })
+  res.<span class="fn">json</span>({ user: { id: user.id, name: user.name, role: user.role } })
+})
+
+router.<span class="fn">post</span>(<span class="str">'/login'</span>, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> { email, password } = req.body
+  <span class="kw">const</span> user = <span class="kw">await</span> prisma.user.<span class="fn">findUnique</span>({ where: { email } })
+  <span class="kw">if</span> (!user || !<span class="kw">await</span> bcrypt.<span class="fn">compare</span>(password, user.password))
+    <span class="kw">return</span> res.<span class="fn">status</span>(<span class="num">401</span>).<span class="fn">json</span>({ error: <span class="str">'Invalid credentials'</span> })
+
+  <span class="kw">const</span> token = jwt.<span class="fn">sign</span>({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: <span class="str">'7d'</span> })
+  res.<span class="fn">cookie</span>(<span class="str">'token'</span>, token, { httpOnly: <span class="kw">true</span>, secure: <span class="kw">true</span>, sameSite: <span class="str">'strict'</span>, maxAge: <span class="num">604800000</span> })
+  res.<span class="fn">json</span>({ user: { id: user.id, name: user.name, role: user.role } })
+})</pre>
+  </div>
+  <div class="info-box"><strong>Admin tip:</strong> Set your account's <code>role</code> to <code>'admin'</code> directly in the database after registering. Then all routes using <code>requireAdmin</code> middleware are protected.</div>
+</section>
+
+<!-- 07 SEO -->
+<section class="section" id="seo">
+  <div class="section-head">
+    <span class="section-num">07</span>
+    <h2>SEO & Performance</h2>
+  </div>
+
+  <div class="card-grid">
+    <div class="card"><div class="card-icon">🔗</div><h4>Clean URLs</h4><p>Use slugs like <code>/blog/stoic-morning</code> not <code>/post?id=1</code>. Generate slugs from post titles on save.</p></div>
+    <div class="card"><div class="card-icon">🏷</div><h4>Meta Tags per Post</h4><p>Dynamic Open Graph and Twitter card tags for each article. Use <code>react-helmet-async</code>.</p></div>
+    <div class="card"><div class="card-icon">🗺</div><h4>Sitemap.xml</h4><p>Auto-generate with <code>sitemap</code> npm package. Submit to Google Search Console.</p></div>
+    <div class="card"><div class="card-icon">⚡</div><h4>Image Optimization</h4><p>Cloudinary auto-converts to WebP. Add <code>loading="lazy"</code> to all non-hero images.</p></div>
+    <div class="card"><div class="card-icon">📖</div><h4>Reading Time</h4><p>Auto-calculate: <code>Math.ceil(wordCount / 200)</code> minutes. Show in post header.</p></div>
+    <div class="card"><div class="card-icon">📄</div><h4>Schema Markup</h4><p>Add JSON-LD <code>BlogPosting</code> schema to each article page for Google rich results.</p></div>
+  </div>
+
+  <h3>Dynamic Meta Tags (React Helmet)</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">jsx</span>
+<pre><span class="cm">// components/SEOHead.jsx</span>
+<span class="kw">import</span> { Helmet } <span class="kw">from</span> <span class="str">'react-helmet-async'</span>
+
+<span class="kw">export function</span> <span class="fn">SEOHead</span>({ title, description, image, url, type = <span class="str">'article'</span> }) {
+  <span class="kw">return</span> (
+    &lt;<span class="dec">Helmet</span>&gt;
+      &lt;<span class="dec">title</span>&gt;{title} — Logicity by Vikash&lt;/<span class="dec">title</span>&gt;
+      &lt;<span class="dec">meta</span> name=<span class="str">"description"</span> content={description} /&gt;
+      &lt;<span class="dec">meta</span> property=<span class="str">"og:title"</span> content={title} /&gt;
+      &lt;<span class="dec">meta</span> property=<span class="str">"og:description"</span> content={description} /&gt;
+      &lt;<span class="dec">meta</span> property=<span class="str">"og:image"</span> content={image} /&gt;
+      &lt;<span class="dec">meta</span> property=<span class="str">"og:url"</span> content={url} /&gt;
+      &lt;<span class="dec">meta</span> property=<span class="str">"og:type"</span> content={type} /&gt;
+      &lt;<span class="dec">meta</span> name=<span class="str">"twitter:card"</span> content=<span class="str">"summary_large_image"</span> /&gt;
+      &lt;<span class="dec">meta</span> name=<span class="str">"twitter:creator"</span> content=<span class="str">"@Vikashraj_Varun"</span> /&gt;
+      &lt;<span class="dec">link</span> rel=<span class="str">"canonical"</span> href={url} /&gt;
+      &lt;<span class="dec">script</span> type=<span class="str">"application/ld+json"</span>&gt;{<span class="fn">JSON.stringify</span>({
+        <span class="str">"@context"</span>: <span class="str">"https://schema.org"</span>,
+        <span class="str">"@type"</span>: <span class="str">"BlogPosting"</span>,
+        <span class="prop">"headline"</span>: title,
+        <span class="prop">"description"</span>: description,
+        <span class="prop">"image"</span>: image,
+        <span class="prop">"author"</span>: { <span class="str">"@type"</span>: <span class="str">"Person"</span>, <span class="prop">"name"</span>: <span class="str">"Vikash"</span> }
+      })}&lt;/<span class="dec">script</span>&gt;
+    &lt;/<span class="dec">Helmet</span>&gt;
+  )
+}</pre>
+  </div>
+</section>
+
+<!-- 08 DATABASE -->
+<section class="section" id="database">
+  <div class="section-head">
+    <span class="section-num">08</span>
+    <h2>Database Schema (Prisma)</h2>
+  </div>
+  <p>The full Prisma schema for your platform. Run <code>npx prisma db push</code> to create all tables.</p>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">prisma</span>
+<pre><span class="cm">// schema.prisma</span>
+<span class="kw">generator</span> client {
+  provider = <span class="str">"prisma-client-js"</span>
+}
+
+<span class="kw">datasource</span> db {
+  provider = <span class="str">"postgresql"</span>
+  url      = env(<span class="str">"DATABASE_URL"</span>)
+}
+
+<span class="kw">model</span> <span class="fn">User</span> {
+  id          <span class="dec">String</span>    @id @default(uuid())
+  name        <span class="dec">String</span>
+  email       <span class="dec">String</span>    @unique
+  password    <span class="dec">String</span>
+  avatarUrl   <span class="dec">String</span>?
+  role        <span class="dec">String</span>    @default(<span class="str">"user"</span>)  <span class="cm">// "user" | "admin"</span>
+  posts       <span class="fn">Post</span>[]
+  comments    <span class="fn">Comment</span>[]
+  likes       <span class="fn">Like</span>[]
+  createdAt   <span class="dec">DateTime</span>  @default(now())
+}
+
+<span class="kw">model</span> <span class="fn">Post</span> {
+  id               <span class="dec">String</span>    @id @default(uuid())
+  slug             <span class="dec">String</span>    @unique
+  title            <span class="dec">String</span>
+  excerpt          <span class="dec">String</span>
+  body             <span class="dec">String</span>    <span class="cm">// HTML from Tiptap</span>
+  coverImage       <span class="dec">String</span>?
+  category         <span class="dec">String</span>
+  published        <span class="dec">Boolean</span>   @default(<span class="kw">false</span>)
+  totalReadSeconds <span class="dec">Int</span>       @default(<span class="num">0</span>)
+  authorId         <span class="dec">String</span>
+  author           <span class="fn">User</span>      @relation(fields: [authorId], references: [id])
+  comments         <span class="fn">Comment</span>[]
+  likes            <span class="fn">Like</span>[]
+  views            <span class="fn">PageView</span>[]
+  createdAt        <span class="dec">DateTime</span>  @default(now())
+  updatedAt        <span class="dec">DateTime</span>  @updatedAt
+}
+
+<span class="kw">model</span> <span class="fn">Comment</span> {
+  id        <span class="dec">String</span>    @id @default(uuid())
+  body      <span class="dec">String</span>
+  postId    <span class="dec">String</span>
+  post      <span class="fn">Post</span>      @relation(fields: [postId], references: [id])
+  authorId  <span class="dec">String</span>
+  author    <span class="fn">User</span>      @relation(fields: [authorId], references: [id])
+  parentId  <span class="dec">String</span>?   <span class="cm">// null = top-level, set = reply</span>
+  replies   <span class="fn">Comment</span>[] @relation(<span class="str">"CommentReplies"</span>)
+  parent    <span class="fn">Comment</span>?  @relation(<span class="str">"CommentReplies"</span>, fields: [parentId], references: [id])
+  createdAt <span class="dec">DateTime</span>  @default(now())
+}
+
+<span class="kw">model</span> <span class="fn">Like</span> {
+  id        <span class="dec">String</span>   @id @default(uuid())
+  postId    <span class="dec">String</span>
+  post      <span class="fn">Post</span>     @relation(fields: [postId], references: [id])
+  userId    <span class="dec">String</span>   <span class="cm">// can be user ID or hashed IP</span>
+  @@unique([postId, userId])
+}
+
+<span class="kw">model</span> <span class="fn">PageView</span> {
+  id        <span class="dec">String</span>   @id @default(uuid())
+  postId    <span class="dec">String</span>
+  post      <span class="fn">Post</span>     @relation(fields: [postId], references: [id])
+  ip        <span class="dec">String</span>
+  referrer  <span class="dec">String</span>?
+  path      <span class="dec">String</span>
+  date      <span class="dec">DateTime</span> @default(now())
+}
+
+<span class="kw">model</span> <span class="fn">Subscriber</span> {
+  id        <span class="dec">String</span>   @id @default(uuid())
+  email     <span class="dec">String</span>   @unique
+  token     <span class="dec">String</span>
+  confirmed <span class="dec">Boolean</span>  @default(<span class="kw">false</span>)
+  createdAt <span class="dec">DateTime</span> @default(now())
+}</pre>
+  </div>
+</section>
+
+<!-- 09 ROADMAP -->
+<section class="section" id="roadmap">
+  <div class="section-head">
+    <span class="section-num">09</span>
+    <h2>Implementation Roadmap</h2>
+  </div>
+  <p>Build in phases. Each phase is independently deployable — you don't need to finish everything before going live.</p>
+
+  <div class="roadmap">
+    <div class="phase p1">
+      <p class="phase-num">Phase 1 · Week 1–2</p>
+      <h4>Foundation</h4>
+      <ul>
+        <li>Set up Vite + React project</li>
+        <li>Migrate existing HTML/CSS to components</li>
+        <li>Set up Node.js + Express API</li>
+        <li>Connect PostgreSQL via Supabase</li>
+        <li>Deploy frontend to Vercel</li>
+        <li>Deploy backend to Railway</li>
       </ul>
-      <div class="nav-actions">
-        <button class="icon-btn" id="search-trigger" title="Search (Ctrl+K)">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        </button>
-        <button class="icon-btn" id="theme-toggle" title="Toggle theme">
-          <svg class="icon-moon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="icon-sun" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        </button>
-        <button class="icon-btn hamburger" id="hamburger">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
     </div>
-  </nav>
-
-  <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-inner">
-      <a class="drawer-link" data-nav="blog">Writing</a>
-      <a class="drawer-link" data-nav="books">Books</a>
-      <a class="drawer-link" data-nav="coding">Code</a>
-      <a class="drawer-link" data-nav="philosophy">Philosophy</a>
-      <a class="drawer-link" data-nav="about">About</a>
-      <a class="drawer-link" data-nav="contact">Contact</a>
+    <div class="phase p2">
+      <p class="phase-num">Phase 2 · Week 3–4</p>
+      <h4>Writing System</h4>
+      <ul>
+        <li>Integrate Tiptap editor</li>
+        <li>Build admin post creator page</li>
+        <li>Image upload to Cloudinary</li>
+        <li>Auto-save drafts</li>
+        <li>Post preview before publish</li>
+        <li>Slug generation from title</li>
+      </ul>
     </div>
-  </div>
-  <div class="drawer-backdrop" id="drawer-backdrop"></div>
-
-  <!-- SEARCH -->
-  <div class="search-modal" id="search-modal">
-    <div class="search-backdrop" id="search-backdrop"></div>
-    <div class="search-panel">
-      <div class="search-input-row">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input id="search-field" type="text" placeholder="Search articles, books, snippets…" autocomplete="off" />
-        <kbd>ESC</kbd>
-      </div>
-      <div class="search-results" id="search-results"></div>
-      <div class="search-footer">
-        <span>↑↓ navigate</span><span>↵ open</span><span>ESC close</span>
-      </div>
+    <div class="phase p3">
+      <p class="phase-num">Phase 3 · Week 5–6</p>
+      <h4>Interactivity</h4>
+      <ul>
+        <li>Auth system (register/login/JWT)</li>
+        <li>Like button with toggle</li>
+        <li>Comment system with replies</li>
+        <li>Email subscribe + confirm flow</li>
+        <li>Social share buttons</li>
+      </ul>
+    </div>
+    <div class="phase p4">
+      <p class="phase-num">Phase 4 · Week 7–8</p>
+      <h4>Analytics & Polish</h4>
+      <ul>
+        <li>View tracking + time-on-page</li>
+        <li>Admin analytics dashboard</li>
+        <li>SEO meta tags + sitemap</li>
+        <li>Full-text search (Meilisearch)</li>
+        <li>Notification system</li>
+        <li>Performance audit (Lighthouse)</li>
+      </ul>
     </div>
   </div>
 
-  <!-- PAGE WRAPPER -->
-  <div id="page-wrapper">
+  <div class="step-list">
+    <div class="step"><div class="step-num">1</div><div><h4>Start with the monorepo structure</h4><p>Create <code>/client</code> (React) and <code>/server</code> (Express) folders. Use a root <code>package.json</code> with workspaces or just two separate repos on GitHub.</p><span class="time">Day 1</span></div></div>
+    <div class="step"><div class="step-num">2</div><div><h4>Get the database running first</h4><p>Create a free Supabase project. Copy the connection string. Run <code>npx prisma init</code> and paste the schema. Run <code>npx prisma db push</code>.</p><span class="time">Day 2</span></div></div>
+    <div class="step"><div class="step-num">3</div><div><h4>Build the API layer before the UI</h4><p>Test all endpoints with Postman or Thunder Client. Make sure CRUD for posts works before touching React.</p><span class="time">Week 1</span></div></div>
+    <div class="step"><div class="step-num">4</div><div><h4>Migrate your existing design to React components</h4><p>Your CSS is already great — copy <code>styles.css</code> as-is. Convert each HTML section into a React component. Keep the visual identity.</p><span class="time">Week 2</span></div></div>
+    <div class="step"><div class="step-num">5</div><div><h4>Add features one at a time</h4><p>Don't try to build everything at once. Like button → Comments → Subscribe → Analytics. Deploy and test after each feature.</p><span class="time">Week 3–6</span></div></div>
+  </div>
+</section>
 
-    <!-- HOME -->
-    <section class="page active" id="page-home">
-      <div class="hero">
-        <div class="hero-content">
-          <p class="hero-eyebrow"><span class="eyebrow-line"></span><span>Knowledge Hub · Est. 2025</span></p>
-          <h1 class="hero-headline">
-            <span class="hl-wrap"><span class="hl">Exploring</span></span>
-            <span class="hl-wrap"><em class="hl">Coding,</em></span>
-            <span class="hl-wrap"><span class="hl">Philosophy</span></span>
-            <span class="hl-wrap"><span class="hl">&amp; Ideas.</span></span>
-          </h1>
-          <p class="hero-sub">A personal space where curiosity meets clarity. Writing about code, philosophy, books, experience, and the art of thinking clearly.</p>
-          <div class="hero-cta">
-            <button class="btn-primary" data-nav="blog">Read the Blog</button>
-            <button class="btn-ghost" data-nav="about">About Me</button>
-          </div>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-box"><span class="stat-num" data-count="2">0</span><span class="stat-label">Articles</span></div>
-          <div class="stat-box"><span class="stat-num" data-count="10">0</span><span class="stat-label">Books Read</span></div>
-          <div class="stat-box"><span class="stat-num" data-count="0">0</span><span class="stat-label">Projects</span></div>
-          <div class="stat-box"><span class="stat-num" data-count="2">0</span><span class="stat-label">Years Writing</span></div>
-        </div>
-        <div class="hero-scroll"><div class="scroll-track"><div class="scroll-thumb"></div></div><span>scroll</span></div>
-      </div>
-
-      <div class="section-wrap">
-        <div class="section-head reveal">
-          <p class="section-eyebrow">Featured</p>
-          <h2 class="section-title">Editor's Pick</h2>
-        </div>
-        <div class="featured-layout reveal">
-          <div class="feat-main card-hover" data-nav="article" data-id="stoic-morning">
-            <div class="feat-img" style="background:linear-gradient(135deg,#0d0d1a 0%,#16213e 60%,#0f3460 100%)">
-              <span class="feat-emoji">🌄</span>
-            </div>
-            <div class="feat-body">
-              <span class="tag-pill">Philosophy</span>
-              <h3>The Stoic Morning: How Marcus Aurelius Built Unbreakable Discipline</h3>
-              <p>Every morning, Marcus Aurelius reminded himself of the same truths. Not because he was afraid, but because clarity is a practice, not a destination…</p>
-              <div class="meta-row"><span>Jan 12, 2025</span><span class="dot">·</span><span>8 min read</span></div>
-            </div>
-          </div>
-          <div class="feat-side">
-            <div class="feat-small card-hover" data-nav="article" data-id="binary-search">
-              <div class="feat-small-img" style="background:linear-gradient(135deg,#0f1923,#1a3a4a)">💻</div>
-              <div class="feat-small-body">
-                <span class="tag-pill">Coding</span>
-                <h4>Binary Search Beyond Arrays</h4>
-                <div class="meta-row"><span>Feb 3, 2025</span><span class="dot">·</span><span>5 min</span></div>
-              </div>
-            </div>
-            <div class="feat-small card-hover" data-nav="article" data-id="deep-work-notes">
-              <div class="feat-small-img" style="background:linear-gradient(135deg,#1a1000,#3a2800)">📗</div>
-              <div class="feat-small-body">
-                <span class="tag-pill">Book Summary</span>
-                <h4>Deep Work by Cal Newport — Key Lessons</h4>
-                <div class="meta-row"><span>Mar 1, 2025</span><span class="dot">·</span><span>6 min</span></div>
-              </div>
-            </div>
-            <div class="feat-small card-hover" data-nav="article" data-id="atomic-habits">
-              <div class="feat-small-img" style="background:linear-gradient(135deg,#1a0800,#3a1800)">⚗️</div>
-              <div class="feat-small-body">
-                <span class="tag-pill">Book Summary</span>
-                <h4>Atomic Habits — The System That Changes Everything</h4>
-                <div class="meta-row"><span>Apr 5, 2025</span><span class="dot">·</span><span>5 min</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-wrap alt-bg">
-        <div class="section-head reveal">
-          <p class="section-eyebrow">Latest</p>
-          <h2 class="section-title">Recent Writing</h2>
-        </div>
-        <div class="post-list" id="home-post-list"></div>
-        <div class="center-action reveal">
-          <button class="btn-outline" data-nav="blog">View All Articles →</button>
-        </div>
-      </div>
-
-      <div class="section-wrap">
-        <div class="section-head reveal">
-          <p class="section-eyebrow">Explore</p>
-          <h2 class="section-title">Browse by Topic</h2>
-        </div>
-        <div class="cat-grid">
-          <div class="cat-card reveal" data-nav="philosophy"><div class="cat-glow"></div><span class="cat-icon">🏛️</span><h3>Philosophy</h3><p>12 essays</p><span class="cat-arrow">→</span></div>
-          <div class="cat-card reveal" data-nav="coding"><div class="cat-glow"></div><span class="cat-icon">⌨️</span><h3>Coding</h3><p>18 tutorials</p><span class="cat-arrow">→</span></div>
-          <div class="cat-card reveal" data-nav="books"><div class="cat-glow"></div><span class="cat-icon">📚</span><h3>Book Summaries</h3><p>28 books</p><span class="cat-arrow">→</span></div>
-          <div class="cat-card reveal" data-nav="blog"><div class="cat-glow"></div><span class="cat-icon">🌱</span><h3>Personal Thoughts</h3><p>8 reflections</p><span class="cat-arrow">→</span></div>
-          <div class="cat-card reveal" data-nav="blog"><div class="cat-glow"></div><span class="cat-icon">📝</span><h3>Learning Notes</h3><p>14 notes</p><span class="cat-arrow">→</span></div>
-        </div>
-      </div>
-
-      <div class="section-wrap">
-        <div class="newsletter-block reveal">
-          <div class="nl-orb"></div>
-          <p class="section-eyebrow">Newsletter</p>
-          <h2>Stay in the loop</h2>
-          <p class="nl-sub">One thoughtful email per week. Ideas on philosophy, code, and learning. No spam — ever.</p>
-          <div class="nl-form"><input id="nl-email" type="email" placeholder="your@email.com" /><button class="btn-primary" id="nl-btn">Subscribe</button></div>
-        </div>
-      </div>
-
-      <footer class="site-footer">
-        <div class="footer-inner">
-          <div>
-            <div class="footer-logo">Logicity <span>by Vikash</span></div>
-            <p class="footer-copy">© 2025 Vikash. All rights reserved.</p>
-          </div>
-          <div class="footer-nav">
-            <a data-nav="blog">Writing</a>
-            <a data-nav="books">Books</a>
-            <a data-nav="coding">Code</a>
-            <a data-nav="about">About</a>
-            <a data-nav="contact">Contact</a>
-          </div>
-          <div class="footer-social">
-            <button class="icon-btn" onclick="App.toast('GitHub')"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></button>
-            <button class="icon-btn" onclick="App.toast('Twitter')"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-          </div>
-        </div>
-      </footer>
-    </section>
-
-    <!-- BLOG -->
-    <section class="page" id="page-blog">
-      <div class="page-hero">
-        <p class="section-eyebrow">All Writing</p>
-        <h1 class="page-title">The Blog</h1>
-        <p class="page-sub">Thoughts on code, philosophy, books, and learning.</p>
-        <div class="filter-row" id="blog-filters">
-          <button class="filter-btn active" data-cat="all">All</button>
-          <button class="filter-btn" data-cat="philosophy">Philosophy</button>
-          <button class="filter-btn" data-cat="coding">Coding</button>
-          <button class="filter-btn" data-cat="book-summary">Book Summaries</button>
-          <button class="filter-btn" data-cat="personal">Personal</button>
-          <button class="filter-btn" data-cat="notes">Learning Notes</button>
-        </div>
-      </div>
-      <div class="section-wrap"><div class="blog-grid" id="blog-grid"></div></div>
-      <footer class="site-footer"><div class="footer-inner"><div class="footer-logo">Logicity <span>by Vikash</span></div></div></footer>
-    </section>
-
-    <!-- ARTICLE -->
-    <section class="page" id="page-article">
-      <div class="article-container">
-        <button class="back-btn" id="article-back">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          Back
-        </button>
-        <div id="article-content"></div>
-      </div>
-      <footer class="site-footer"><div class="footer-inner"><div class="footer-logo">Logicity <span>by Vikash</span></div></div></footer>
-    </section>
-
-    <!-- BOOKS -->
-    <section class="page" id="page-books">
-      <div class="page-hero">
-        <p class="section-eyebrow">Library</p>
-        <h1 class="page-title">Books I've Read</h1>
-        <p class="page-sub">Every book leaves a mark. Notes, summaries, and honest ratings.</p>
-      </div>
-      <div class="section-wrap"><div class="books-grid" id="books-grid"></div></div>
-      <footer class="site-footer"><div class="footer-inner"><div class="footer-logo">Logicity <span>by Vikash</span></div></div></footer>
-    </section>
-
-    <!-- BOOK DETAIL -->
-    <section class="page" id="page-book-detail">
-      <div class="article-container">
-        <button class="back-btn" data-nav="books">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          Back to Library
-        </button>
-        <div id="book-detail-content"></div>
-      </div>
-      <footer class="site-footer"><div class="footer-inner"><div class="footer-logo">Logicity <span>by Vikash</span></div></div></footer>
-    </section>
-
-    <!-- CODING -->
-    <section class="page" id="page-coding">
-      <div class="page-hero">
-        <p class="section-eyebrow">Code</p>
-        <h1 class="page-title">Coding Corner</h1>
-        <p class="page-sub">Tutorials, competitive programming notes, and reusable snippets.</p>
-        <div class="code-search-wrap">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input id="code-search" type="text" placeholder="Search snippets, languages, tags…" />
-        </div>
-      </div>
-      <div class="section-wrap"><div class="snippet-grid" id="snippet-grid"></div></div>
-      <footer class="site-footer"><div class="footer-inner"><div class="footer-logo">Logicity <span>by Vikash</span></div></div></footer>
-    </section>
-
-    <!-- PHILOSOPHY -->
-    <section class="page" id="page-philosophy">
-      <div class="page-hero narrow-hero">
-        <p class="section-eyebrow">Deep Thoughts</p>
-        <h1 class="page-title">Philosophy</h1>
-        <p class="page-sub">Reflections on living well, thinking clearly, and being human.</p>
-      </div>
-      <div class="section-wrap narrow-section"><div id="phil-list"></div></div>
-      <footer class="site-footer"><div class="footer-inner"><div class="footer-logo">Logicity <span>by Vikash</span></div></div></footer>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="page" id="page-about">
-      <div class="about-container">
-        <div class="about-hero">
-          <div class="about-avatar"><span> <img src="p.png"></span><div class="avatar-ring"></div></div>
-          <div class="about-intro">
-            <p class="section-eyebrow">Hello, I'm</p>
-            <h1 class="page-title">Vikash</h1>
-            <p>I'm a Btech student as a competitive programmer and web developer who believes on the rational thinking — of ideas, of Zenith things, of thought."बिहार से हूं" live in Bangalore. I write to think clearly, and I build to understand deeply.</p>
-            <p style="margin-top:1rem">This site, <em>Logicity</em>, is my digital garden — where logic meets the city of ideas. Here I share what I'm learning in coding, what I'm thinking about philosophy, and which books are reshaping how I see the world. here everything is not universal some will be my opinion. </p>
-          </div>
-        </div>
-        <div class="about-section">
-          <p class="section-eyebrow">Interests</p>
-          <div class="interest-grid">
-            <div class="interest-pill">⌨️ Competitive Programming</div>
-            <div class="interest-pill">🏛️ Stoic Philosophy</div>
-            <div class="interest-pill">📚 Avid Reading</div>
-            <div class="interest-pill">🧠 Deep Learning</div>
-            <div class="interest-pill">🌱 Personal Growth</div>
-            <div class="interest-pill">✍️ Long-form Writing</div>
-            <div class="interest-pill">🔭 Epistemology</div>
-            <div class="interest-pill">⚙️ Systems Thinking</div>
-          </div>
-        </div>
-        <div class="about-section">
-          <p class="section-eyebrow">My Journey</p>
-          <div class="timeline">
-            <div class="tl-item"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-body"><span class="tl-year">2025</span><h4>Started coding seriously</h4><p>Picked up Python, fell in love with algorithms and problem-solving.</p></div></div>
-            <div class="tl-item"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-body"><span class="tl-year">2025</span><h4>Read some extra</h4><p>Read Marcus Aurelius. Everything changed. Started journaling seriously.</p></div></div>
-            <div class="tl-item"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-body"><span class="tl-year">2025</span><h4>Built Logicity</h4><p>Launched this blog to share ideas and connect with curious minds.</p></div></div>
-            <div class="tl-item"><div class="tl-dot"></div><div class="tl-body"><span class="tl-year">2025</span><h4>Growing deeper</h4><p>Studying CSE, writing weekly, Try to reading 1 book in a month.</p></div></div>
-          </div>
-        </div>
-        <div class="about-section">
-          <p class="section-eyebrow">Find Me Online</p>
-          <div class="social-row">
-            <a class="social-btn" href="https://github.com/VikashRajcoder/vikash.github.io" onclick="App.toast('GitHub →')"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> GitHub</a>
-            <a class="social-btn" href="https://x.com/Vikashraj_Varun" onclick="App.toast('Twitter →')"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Twitter</a>
-            <a class="social-btn" href="https://www.instagram.com/vikashraj_barun" onclick="App.toast('Instagram →')"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
-            <a class="social-btn" href="mailto:varunraj9104@.com"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg> Email</a>
-          </div>
-        </div>
-      </div>
-      <footer class="site-footer"><div class="footer-inner"><div class="footer-logo">Logicity <span>by Vikash</span></div><div class="footer-nav"><a data-nav="contact">Get in touch →</a></div></div></footer>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="page" id="page-contact">
-      <div class="contact-container">
-        <div class="contact-header">
-          <p class="section-eyebrow">Get in Touch</p>
-          <h1 class="page-title">Contact</h1>
-          <p class="page-sub">Have an idea, a book rec, or just want to say hello?</p>
-        </div>
-        <div class="contact-grid">
-          <div class="contact-form-wrap">
-            <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" placeholder="Your name" id="c-name" /></div>
-            <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="your@email.com" id="c-email" /></div>
-            <div class="form-group"><label class="form-label">Subject</label><input class="form-input" type="text" placeholder="What's on your mind?" id="c-subject" /></div>
-            <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Write your message here…" id="c-message"></textarea></div>
-            <button class="btn-primary full-width" id="contact-submit">Send Message</button>
-          </div>
-          <div class="contact-info">
-            <h3>Other ways to reach me</h3>
-            <div class="contact-links">
-              <a class="contact-link" href="mailto:varunraj9104@.com"><span class="cl-icon">📧</span><div><span class="cl-label">Email</span><span class="cl-value">varunraj9104@gmail.com</span></div></a>
-              <a class="contact-link" href="https://github.com/VikashRajcoder/vikash.github.io" onclick="App.toast('GitHub')"><span class="cl-icon">💻</span><div><span class="cl-label">GitHub</span><span class="cl-value">VikashRajcoder</span></div></a>
-              <a class="contact-link" href="https://x.com/Vikashraj_Varun" onclick="App.toast('Twitter')"><span class="cl-icon">🐦</span><div><span class="cl-label">Twitter</span><span class="cl-value">Vikashraj_Varun</span></div></a>
-              <a class="contact-link" href="https://instagram.com/vikashraj_barun" onclick="App.toast('Instagram')"><span class="cl-icon">📸</span><div><span class="cl-label">Instagram</span><span class="cl-value">vikashraj_barun</span></div></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="site-footer"><div class="footer-inner"><div class="footer-logo">Logicity <span>by Vikash</span></div><p class="footer-copy">© 2025 Vikash Raj</p></div></footer>
-    </section>
-
+<!-- 10 HOSTING -->
+<section class="section" id="hosting">
+  <div class="section-head">
+    <span class="section-num">10</span>
+    <h2>Hosting & Deployment</h2>
   </div>
 
-  <div id="toast" role="alert"></div>
-  <script src="app.js"></script>
+  <table class="feat-table">
+    <thead>
+      <tr><th>Service</th><th>What For</th><th>Free Tier</th><th>Paid</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Vercel</td><td>React frontend</td><td><span class="check">✓</span> Unlimited</td><td>$20/mo Pro</td></tr>
+      <tr><td>Railway</td><td>Node.js backend</td><td><span class="check">✓</span> $5 credit</td><td>$5–20/mo</td></tr>
+      <tr><td>Supabase</td><td>PostgreSQL + Storage</td><td><span class="check">✓</span> 500MB DB</td><td>$25/mo Pro</td></tr>
+      <tr><td>Upstash</td><td>Redis (sessions/cache)</td><td><span class="check">✓</span> 10K req/day</td><td>$0.2/100K req</td></tr>
+      <tr><td>Cloudinary</td><td>Image hosting</td><td><span class="check">✓</span> 25GB</td><td>$89/mo Plus</td></tr>
+      <tr><td>Resend</td><td>Emails</td><td><span class="check">✓</span> 3,000/mo</td><td>$20/mo</td></tr>
+      <tr><td>Cloudflare</td><td>CDN + DNS</td><td><span class="check">✓</span> Always free</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box"><strong>Total monthly cost to start:</strong> <strong>₹0 – ₹500</strong> (free tiers are very generous for a personal blog). You only pay as you scale past thousands of daily visitors.</div>
+
+  <h3>Environment Variables (.env)</h3>
+  <div class="code-wrap">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <span class="code-lang">env</span>
+<pre><span class="cm"># Server .env</span>
+DATABASE_URL=postgresql://...
+JWT_SECRET=your-super-secret-key-here
+REDIS_URL=redis://...
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+RESEND_API_KEY=re_...
+BASE_URL=https://logicity.com
+CORS_ORIGIN=https://logicity.com
+
+<span class="cm"># Client .env (Vite prefix required)</span>
+VITE_API_URL=https://api.logicity.com</pre>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--border);padding:2.5rem 0;margin-top:2rem;text-align:center">
+  <p style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3)">Logicity Upgrade Blueprint · Built for Vikash · 2025</p>
+  <p style="font-size:0.85rem;color:var(--text3);margin-top:0.5rem">Questions? Ask Claude to deep-dive into any section.</p>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+function toggleTheme(){
+  const html = document.documentElement
+  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark'
+}
+
+function showTab(btn, panelId){
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'))
+  btn.classList.add('active')
+  document.getElementById(panelId).classList.add('active')
+}
+
+function copyCode(btn){
+  const pre = btn.closest('.code-wrap').querySelector('pre')
+  const text = pre.innerText
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!'
+    setTimeout(() => btn.textContent = 'Copy', 2000)
+  })
+}
+</script>
 </body>
 </html>
