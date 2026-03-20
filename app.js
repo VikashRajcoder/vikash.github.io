@@ -446,6 +446,51 @@ int main() {
   },
 
   books: [
+    /* ══════════════════════════════════════════════════
+       ✦  GODAN — NEW ENTRY (added with real photo)
+    ══════════════════════════════════════════════════ */
+    {
+      id: 'godan',
+      title: 'गोदान',
+      author: 'मुंशी प्रेमचंद',
+      emoji: '🌾',
+      img: 'godan.jpg',                // place godan.jpg in your project root
+      bg: 'linear-gradient(135deg,#2C1810 0%,#5C2E1A 50%,#8B4513 100%)',
+      rating: 5,
+      summary: 'भावनाओं का सागर, गाँवों की व्यवस्था, किसान और मजदूरों की तड़प — गोदान (1936) हिंदी साहित्य का सर्वश्रेष्ठ उपन्यास है। होरी की एक गाय का सपना पूरे भारत के किसान की त्रासदी का प्रतीक बन जाता है।',
+      lessons: [
+        'किसान का शोषण सदियों से जारी है — ज़मींदार, साहूकार और व्यवस्था मिलकर उसे निचोड़ते हैं',
+        'गाय सिर्फ पशु नहीं, बल्कि होरी की आस्था, सम्मान और सपने का प्रतीक है',
+        'अपने ही लोग सबसे बड़ा दुख दे सकते हैं — होरी के भाई ने ही गाय को ज़हर दिया',
+        'स्त्री (धनिया) की शक्ति और साहस किसी से कम नहीं होता',
+        'सपने जीते-जी पूरे न हों, तो मरते वक्त भी अधूरे रह जाते हैं',
+        'शहर और गाँव — दो अलग दुनियाएँ, पर इंसान की तड़प एक जैसी',
+      ],
+      quotes: [
+        '"यही गोदान है।" — धनिया के ये दो शब्द पूरे भारत के किसान की त्रासदी को समेट लेते हैं।',
+        '"लिखते तो वह लोग हैं, जिनके अंदर कुछ दर्द है, अनुराग है, लगन है, विचार है।" — मुंशी प्रेमचंद',
+      ],
+      hindiContent: `
+        <h2 id="s0">उपन्यास का परिचय</h2>
+        <p>आज़ादी से पहले मुंशी प्रेमचंद द्वारा रचित यह उपन्यास केवल एक कथा ही नहीं बल्कि भावनाओं का सागर है — गाँवों की व्यवस्था, किसान और मजदूरों की तड़प, समाज की असंगति, अंधविश्वास, उत्पादन और पीड़ा की सच्ची तस्वीर प्रस्तुत करता है <strong>गोदान।</strong></p>
+        <p>मुंशी प्रेमचंद (धनपत राय — जिन्हें <em>"उपन्यास सम्राट"</em> के नाम से भी जाना जाता है) की चिर-परिचित शैली का जीता-जागता उदाहरण है गोदान, जो विश्व की कई भाषाओं में अनुवाद होकर बिकने का गौरव प्राप्त करता है।</p>
+
+        <h2 id="s1">होरी — एक किसान का सपना</h2>
+        <p>होरी एक गरीब किसान और उसका परिवार — धर्म के पक्के, इंसानियत का मशाल, गाँव-समाज की विसंगतियों से घिरे हुए। होरी का एक सपना था — <em>घर में एक सुडौल, बड़ी-बड़ी सींघों वाली दुधारू गाय हो जब दरवाजे पर बंधे तो लोग देखते रह जाएं, जिससे उसकी सम्मान कायम रहे।</em></p>
+        <p>बड़ी मसक्कत से गाय तो आ गई — मुदा होरी और उसके परिवार की खुशी किसी को देखी नहीं गई। पड़ोसियों की करतूत से वह बच न पाई। होरी कुल चार भाई था, तीन साल पहले सब अलग हो गए थे... पता चला कि <strong>होरी के भाई ने ही गाय को रोटी में ज़हर मिलाकर दे दिया था।</strong> गाय की खुशी पानी की तरह बह जाती है।</p>
+        <blockquote>अपने ही लोग सबसे गहरा ज़ख्म देते हैं। यही गोदान की सबसे कड़वी सच्चाई है।</blockquote>
+
+        <h2 id="s2">दो दुनियाएँ — एक तड़प</h2>
+        <p>यह उपन्यास दो दुनियाओं को एक साथ दिखाता है — एक तरफ होरी का <strong>गाँव,</strong> जहाँ गरीबी, जात-पात, अपने ही लोगों का बदलना और शोषण का अंधेरा है; दूसरी तरफ <strong>शहर की चाहरदीवारी,</strong> जहाँ मिस्टर मेहता और मालती जैसे पढ़े-लिखे लोग आधुनिकता और प्रेम की उलझनों में हैं।</p>
+        <p>मिस्टर मेहता — दर्शन, विज्ञान के मर्मज्ञ — जिनके लिए वर्तमान ही सब कुछ है और प्रेम ही ईश्वर है। जो यह सोचता है कि कैसे एक आम आदमी की ऐसी दशा हो सकती है? जिसे गरीबों के बीच बैठकर लगता है जैसे पक्षी अपने घोंसले में आ गई। दोनों दुनियाएँ अलग हैं — पर दोनों में इंसान की तड़प एक जैसी है।</p>
+
+        <h2 id="s3">अंत — सबसे मार्मिक दृश्य</h2>
+        <p>इस उपन्यास का अंत उतना ही मार्मिक है जितनी शुरुआत। होरी मजदूरी करते-करते दम तोड़ देता है। मरते वक्त वह गाय नहीं खरीद पाया। धनिया के पास कुछ नहीं बचा। पड़ोसियों से माँगकर वह कुछ पैसे जुटाती है — और उन्हें पंडित के हाथ में देकर कहती है:</p>
+        <blockquote style="font-size:1.3rem;font-style:italic;">"यही गोदान है।"</blockquote>
+        <p>यह दो शब्द पूरे भारत के किसान की त्रासदी को समेट लेते हैं। एक सपना जो जीते-जी पूरा नहीं हुआ, मरते वक्त भी अधूरा रहा।</p>
+        <p style="margin-top:1.5rem;color:var(--text-2)"><em>होरी का दर्द आज भी ज़िंदा है — बस यही है गोदान।</em></p>
+      `,
+    },
     {
       id: 'meditations',
       title: 'Meditations',
@@ -570,7 +615,6 @@ int main() {
   ],
 
   snippets: [
-    // ── NEW: Hello World in C++ ──────────────────────────────────────────────
     {
       id: 'hello-world-cpp',
       lang: 'C++',
@@ -584,7 +628,6 @@ int main() {          // main function — execution starts here
     return 0;         // stop the program
 }`,
     },
-    // ── NEW: Hello World in C ────────────────────────────────────────────────
     {
       id: 'hello-world-c',
       lang: 'C',
@@ -598,7 +641,6 @@ int main() {
 }
 // Almost all syntax is the same as C++`,
     },
-    // ────────────────────────────────────────────────────────────────────────
     {
       id: 'binary-search-py',
       lang: 'Python',
@@ -1210,7 +1252,12 @@ const App = (() => {
     if (!grid) return;
     grid.innerHTML = DATA.books.map(b => `
       <div class="book-card reveal" data-nav="book-detail" data-id="${b.id}">
-        <div class="book-cover" style="background:${b.bg}">${b.emoji}</div>
+        <div class="book-cover" style="background:${b.img ? 'none' : b.bg}; overflow:hidden;">
+          ${b.img
+            ? `<img src="${b.img}" alt="${b.title}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;">`
+            : b.emoji
+          }
+        </div>
         <div class="book-title">${b.title}</div>
         <div class="book-author">${b.author}</div>
         <div class="book-stars">${'★'.repeat(b.rating)}${'☆'.repeat(5 - b.rating)}</div>
@@ -1226,11 +1273,23 @@ const App = (() => {
     const container = document.getElementById('book-detail-content');
     if (!container) return;
 
+    /* ── Hindi badge shown for Godan ── */
+    const langBadge = book.hindiContent
+      ? `<span class="tag-pill" style="background:rgba(139,69,19,0.18);color:#C4905A;border-color:rgba(139,69,19,0.3);margin-left:0.5rem;">हिंदी</span>`
+      : '';
+
     container.innerHTML = `
       <div class="book-detail-header">
-        <div class="book-detail-cover" style="background:${book.bg}">${book.emoji}</div>
+        <div class="book-detail-cover" style="background:${book.img ? 'none' : book.bg}; overflow:hidden;">
+          ${book.img
+            ? `<img src="${book.img}" alt="${book.title}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;">`
+            : book.emoji
+          }
+        </div>
         <div class="book-detail-info">
-          <div class="tag-pill">Book Summary</div>
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+            <div class="tag-pill">Book Summary</div>${langBadge}
+          </div>
           <h1>${book.title}</h1>
           <div class="book-author">${book.author}</div>
           <div class="book-stars">${'★'.repeat(book.rating)}${'☆'.repeat(5 - book.rating)}</div>
@@ -1238,8 +1297,13 @@ const App = (() => {
         </div>
       </div>
 
+      ${book.hindiContent
+        ? `<div class="prose" style="margin-bottom:2rem;">${book.hindiContent}</div>`
+        : ''
+      }
+
       <div class="lessons-block">
-        <h3>Key Lessons</h3>
+        <h3>${book.hindiContent ? 'मुख्य सीख / Key Lessons' : 'Key Lessons'}</h3>
         ${book.lessons.map((l, i) => `
           <div class="lesson-row">
             <span class="lesson-n">0${i + 1}</span>
@@ -1249,7 +1313,7 @@ const App = (() => {
       </div>
 
       <div style="margin-top:2.5rem">
-        <div class="section-eyebrow" style="margin-bottom:1rem">Favourite Quotes</div>
+        <div class="section-eyebrow" style="margin-bottom:1rem">${book.hindiContent ? 'यादगार पंक्तियाँ' : 'Favourite Quotes'}</div>
         ${book.quotes.map(q => `<div class="quote-block">${q}</div>`).join('')}
       </div>
     `;
