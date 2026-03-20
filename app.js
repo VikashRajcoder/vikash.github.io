@@ -622,6 +622,7 @@ int main() {
       lang: 'C++',
       title: 'Print Hello World with C++',
       tags: ['beginner', 'basics', 'hello-world'],
+      img: 'candcpp.jpg',
       code: `#include <iostream>  // preprocessing directive — cin (input) & cout (output)
 using namespace std; // avoids writing std:: repeatedly
 
