@@ -539,6 +539,7 @@ int main() {
       author: 'James Clear',
       emoji: '⚗️',
       bg: 'linear-gradient(135deg,#1a0800 0%,#3a1800 60%,#1a0a00 100%)',
+      img: 'Atomic.jpg',
       rating: 5,
       summary: 'Tiny changes, remarkable results. The science of building good habits and eliminating bad ones, backed by research and beautifully explained.',
       lessons: [
