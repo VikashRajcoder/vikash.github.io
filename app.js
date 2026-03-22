@@ -53,6 +53,18 @@ const DATA = {
       emoji: '📗',
       bg: 'linear-gradient(135deg,#1a1000,#3a2800)',
     },
+ {
+      id: 'Thnik straight',
+      title: 'Think Straight by Darious Foroux — Key Lessons',
+      cat: 'book-summary',
+      catLabel: 'Book Summary',
+      excerpt: 'Clarity is not found—it is built. When you train your mind to think straight, decisions become power',
+      date: 'sep , 2025',
+      time: '15 min read',
+      emoji: '📗',
+      bg: 'linear-gradient(135deg,#1a1000,#3a2800)',
+    },
+
     {
       id: 'why-i-code',
       title: 'Why I Code — A Student\'s Honest Reflection',
@@ -525,13 +537,34 @@ int main() {
       lessons: [
         'The Subconscious Accepts What You Believe It cannot distinguish between what is real and what is vividly imagined',         
         ' The Law of Belief Whatever you truly believe — not just say, but feel — becomes your reality. Belief is the bridge between desire and manifestation.',
-        'The Importance of Sleep The period just before falling asleep is a "golden window."',
+        'The Importance of Sleep The period just before falling asleep is a "golden window.',
         'Avoid Negative Self-Talk Phrases like "I can not," "I am not good enough," or "I always fail" are instructions to the subconscious. It hears them as commands and works to fulfill them.',
       ],
       quotes: [
         'Change your thoughts, and you change your destiny.',
       ],
     },
+     {
+      id: 'Think Straigth',
+      title: 'Think Straigth',
+      author: 'Darius Foroux',
+      emoji: '📗',
+      bg: 'linear-gradient(135deg,#001a00 0%,#003300 60%,#001a0a 100%)',
+      img: 'think.jpeg',
+      rating: 5,
+      summary: 'It reveals the recipe for taking control of your mind so you can improve your whole life. The mind is the most powerful tool on the earth that cange the way you think.',
+      lessons: [
+        'Journal daily — writing forces you to organize and examine your thoughts clearly',         
+        'Pause before reacting — insert a gap between stimulus and response',
+        'Ask better questions — "What can I do about this?" beats "Why is this happening to me?"',
+        'Limit mental junk food — endless scrolling and gossip pollute your thinking',
+      ],
+      quotes: [
+        'The quality of your thinking determines the quality of your life.',
+      ],
+    },
+
+
     {
       id: 'atomic-habits-book',
       title: 'Atomic Habits',
