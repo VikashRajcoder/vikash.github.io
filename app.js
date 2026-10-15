@@ -912,7 +912,7 @@ const App = (() => {
 
   /* ── Init ── */
   function init() {
-    setupCursor();
+    // setupCursor();
     setupNav();
     setupSearch();
     setupTheme();
@@ -927,38 +927,38 @@ const App = (() => {
   }
 
   /* ── Cursor ── */
-  function setupCursor() {
-    const outer = document.getElementById('cursor-outer');
-    const inner = document.getElementById('cursor-inner');
-    if (!outer || !inner) return;
+  // function setupCursor() {
+  //   const outer = document.getElementById('cursor-outer');
+  //   const inner = document.getElementById('cursor-inner');
+  //   if (!outer || !inner) return;
 
-    document.addEventListener('mousemove', (e) => {
-      cursorX = e.clientX;
-      cursorY = e.clientY;
-      inner.style.left = cursorX + 'px';
-      inner.style.top = cursorY + 'px';
-    });
+  //   document.addEventListener('mousemove', (e) => {
+  //     cursorX = e.clientX;
+  //     cursorY = e.clientY;
+  //     inner.style.left = cursorX + 'px';
+  //     inner.style.top = cursorY + 'px';
+  //   });
 
-    (function animateCursor() {
-      outerX += (cursorX - outerX) * 0.12;
-      outerY += (cursorY - outerY) * 0.12;
-      outer.style.left = outerX + 'px';
-      outer.style.top = outerY + 'px';
-      requestAnimationFrame(animateCursor);
-    })();
+  //   (function animateCursor() {
+  //     outerX += (cursorX - outerX) * 0.12;
+  //     outerY += (cursorY - outerY) * 0.12;
+  //     outer.style.left = outerX + 'px';
+  //     outer.style.top = outerY + 'px';
+  //     requestAnimationFrame(animateCursor);
+  //   })();
 
-    document.addEventListener('mouseover', (e) => {
-      const el = e.target.closest('a, button, [data-nav], .card-hover, .blog-card, .book-card, .snippet-card, .cat-card, .post-item, .feat-small, .feat-main, .filter-btn, .filter-tab');
-      document.body.classList.toggle('cursor-hover', !!el);
-    });
+  //   document.addEventListener('mouseover', (e) => {
+  //     const el = e.target.closest('a, button, [data-nav], .card-hover, .blog-card, .book-card, .snippet-card, .cat-card, .post-item, .feat-small, .feat-main, .filter-btn, .filter-tab');
+  //     document.body.classList.toggle('cursor-hover', !!el);
+  //   });
 
-    document.addEventListener('mousedown', () => {
-      outer.style.transform = 'translate(-50%, -50%) scale(0.85)';
-    });
-    document.addEventListener('mouseup', () => {
-      outer.style.transform = '';
-    });
-  }
+  //   document.addEventListener('mousedown', () => {
+  //     outer.style.transform = 'translate(-50%, -50%) scale(0.85)';
+  //   });
+  //   document.addEventListener('mouseup', () => {
+  //     outer.style.transform = '';
+  //   });
+  // }
 
   /* ── Navigation ── */
   function setupNav() {
