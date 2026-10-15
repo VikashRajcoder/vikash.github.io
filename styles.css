@@ -1733,6 +1733,28 @@ kbd {
   .blog-grid { grid-template-columns: 1fr; }
 }
 
+/* Normal cursor across every section */
+* {
+  cursor: default !important;
+}
+
+a,
+button,
+input[type="submit"],
+[role="button"] {
+  cursor: pointer !important;
+}
+
+input,
+textarea {
+  cursor: text !important;
+}
+
+#cursor-outer,
+#cursor-inner {
+  display: none !important;
+}
+
 @media (max-width: 480px) {
   .hero-headline { font-size: clamp(2.8rem, 12vw, 4rem); }
   .stat-box { padding: 1.2rem; }
