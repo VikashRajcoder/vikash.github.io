@@ -1733,6 +1733,13 @@ kbd {
   .blog-grid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 480px) {
+  .hero-headline { font-size: clamp(2.8rem, 12vw, 4rem); }
+  .stat-box { padding: 1.2rem; }
+  .stat-num { font-size: 1.8rem; }
+  .cat-grid { grid-template-columns: 1fr 1fr; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
 /* Normal cursor across every section */
 * {
   cursor: default !important;
@@ -1753,12 +1760,4 @@ textarea {
 #cursor-outer,
 #cursor-inner {
   display: none !important;
-}
-
-@media (max-width: 480px) {
-  .hero-headline { font-size: clamp(2.8rem, 12vw, 4rem); }
-  .stat-box { padding: 1.2rem; }
-  .stat-num { font-size: 1.8rem; }
-  .cat-grid { grid-template-columns: 1fr 1fr; }
-  .footer-inner { flex-direction: column; align-items: flex-start; }
 }
